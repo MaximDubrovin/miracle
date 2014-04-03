@@ -1,0 +1,62 @@
+
+/* variables */
+
+$c_action: #01a6cf;
+
+$c_link: darkred;
+
+$c_error: #d8695a;
+
+$c_success: #48d860;
+
+$c_inactive: #d3d3d3;
+
+$f_sans-serif-families: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
+$f_serif-families: "Georgia", "Trebuchet MS", "Times New Roman", serif;
+
+/* Clearfix */
+
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+/* Snippet classes */
+
+.b-abs-inner {
+  /* for further element positioning inside absolute element */
+  /* usage — create div with this class */
+  position: relative;
+}
+
+.b-thinspace_text {
+  /* for spaces between numbers & etc */
+  /* usage — create span with &nbsp; and with this class */
+  font-size: 80%;
+}
+
+.b-nowrap {
+  /* usage — wrap your text in span with this class */
+  white-space: nowrap;
+}
+
+.b-spinner {
+  /* for creating spinners */
+  /* usage — create div with this class; show it when something loads */
+  display: none;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  background: center no-repeat;
+  background-image: url('http://spk-metallon.ru/img/spinner.gif')
+}
