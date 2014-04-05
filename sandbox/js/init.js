@@ -38,10 +38,13 @@ M.init = function() {
             miracle.origin = miracle.props.mOrigin;
             miracle.translate = miracle.props.mTranslate;
             miracle.duration = miracle.props.mDuration;
+            miracle.trigger = miracle.props.mTrigger;
             miracle.awaitLoad = miracle.props.mAwaitLoad;
             miracle.awaitShow = miracle.props.mAwaitShow;
             miracle.timeout = miracle.props.mTimeout;
             miracle.spinner.use = miracle.props.mSpinner;
+
+            M.bindEvents(miracle);
 
             M.defineSelectors(miracle);
 
