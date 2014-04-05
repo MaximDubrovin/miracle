@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         uglify: {
             js: {
                 files: {
-                    '../build/js/miracle.min.js': ['../miracle.js']
+                    '../build/js/miracle.min.js': ['../build/js/miracle.js']
                 },
                 options: {
                     banner: '<%= meta.banner %>',
