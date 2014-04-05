@@ -51,7 +51,6 @@ module.exports = function(grunt) {
         concat: {
             js: {
                 files: {
-                    '../miracle.js': '<%= meta.js %>',
                     '../build/js/miracle.js': '<%= meta.js %>'
                 },
                 options: {
@@ -62,7 +61,6 @@ module.exports = function(grunt) {
         uglify: {
             js: {
                 files: {
-                    '../miracle.min.js': ['../miracle.js'],
                     '../build/js/miracle.min.js': ['../miracle.js']
                 },
                 options: {
@@ -189,5 +187,5 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build-release',['compress:min']);
 
-    grunt.registerTask('default',['watch']);
+    grunt.registerTask('watch-changes',['watch']);
 }
