@@ -19,6 +19,7 @@ module.exports = function(grunt) {
                 '../sandbox/js/init.js',
                 '../sandbox/js/getProps.js',
                 '../sandbox/js/findImgs.js',
+                '../sandbox/js/bindEvents.js',
                 '../sandbox/js/bindImgs.js',
                 '../sandbox/js/showMiracle.js',
                 '../sandbox/js/buildRule.js',
