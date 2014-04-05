@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Miracle test-page</title>
+    <link rel="stylesheet" href="css/base.css"/>
+    <script src="js/libs/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="js/libs/spin.min.js" type="text/javascript"></script>
+    <script src="js/miracle.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="b-page" class="clearfix">
+    <div id="b-header" class="clearfix">
+        <div id="b-header__logo" data-m-spinner="true"  class="miracle" data-m-id="logo" data-m-effect="scale" data-m-duration="666">
+            <a href="#">Miracle test-page</a>
+        </div>
+        <div id="b-header__nav" class="miracle"  data-m-id="nav" data-m-await-show="logo" data-m-show-timeout="500">
+            <div class="b-header__nav-item"><a href="#">About</a></div>
+            <div class="b-header__nav-item"><a href="#">Contacts</a></div>
+            <div class="b-header__nav-item"><a id="b-call-me-link" class="a_dashed">Call me</a></div>
+        </div>
+    </div>
+    <div id="b-content" class="clearfix">
+        <div id="b-catalog">
+            <div class="b-catalog__section clearfix">
+                <div class="b-catalog__section-header">
+                    <h1><a href="#">Title</a></h1>
+                    <div class="b-catalog__section-header_sub">some description words here</div>
+                </div>
+                <div class="b-catalog__item-wrap clearfix miracle" data-m-id="first" data-m-effect="ease-x" data-m-origin="left" data-m-await-load="third">
+                    <div class="b-catalog__item">
+                        <a href="#">
+                            <div id="b-catalog__item-img_snickers" class="b-catalog__item-img"></div>
+                            <div class="b-catalog__item-title">
+                                Snickers
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="b-catalog__item-wrap clearfix miracle" data-m-effect="scale" data-m-await-show="first">
+                    <div class="b-catalog__item">
+                        <a href="#">
+                            <div id="b-catalog__item-img_bounty" class="b-catalog__item-img"></div>
+                            <div class="b-catalog__item-title">
+                                Bounty
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="b-catalog__item-wrap clearfix miracle" data-m-id="third" data-m-effect="ease-x" data-m-origin="right" data-m-await-load="first">
+                    <div class="b-catalog__item">
+                        <a href="#">
+                            <div id="b-catalog__item-img_twix" class="b-catalog__item-img"></div>
+                            <div class="b-catalog__item-title">
+                                Twix
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="b-footer" class="clearfix">
+        <div class="b-abs-inner clearfix">
+            <div class="b-site-copy">Miracle plugin, 2014</div>
+            <div class="b-dev-copy">© <a href="mailto:maxxdubrovin@gmail.com">Maxim Dubrovin</a></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
