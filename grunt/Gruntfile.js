@@ -146,7 +146,7 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '../',
+                        cwd: '../build/js/',
                         src: 'miracle.min.js',
                         dest: 'miracle-<%= pkg.version %>-min/'
                     }
