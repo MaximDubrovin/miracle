@@ -4,15 +4,19 @@ M.showMiracle = {
     prepare: function(miracle) {
         M.spinner.show(miracle);
 
-        if (miracle.awaitShow) {
-            /* should miracle await when other miracle will be shown? */
-            M.showMiracle.await.show(miracle);
-        } else if (miracle.awaitLoad) {
-            /* should miracle await when other miracle will be loaded? */
-            M.showMiracle.await.load(miracle);
-        } else {
-            /* don't await any other miracle — show as fast as loaded */
-            M.showMiracle.show(miracle);
+        if (!miracle.trigger) {
+            /* do nothing if miracle must starts to show after trigger */
+
+            if (miracle.awaitShow) {
+                /* should miracle await when other miracle will be shown? */
+                M.showMiracle.await.show(miracle);
+            } else if (miracle.awaitLoad) {
+                /* should miracle await when other miracle will be loaded? */
+                M.showMiracle.await.load(miracle);
+            } else {
+                /* don't await any other miracle — show as fast as loaded */
+                M.showMiracle.show(miracle);
+            }
         }
     },
 
