@@ -327,25 +327,31 @@ h2 {
 
     transition: font-size 0.2s ease-in-out 0s;
   }
-//  .b-catalog__item-wrap {
-//    position: relative;
-//    width: 272px !important;
-//    height: 252px !important;
-//    margin-right: 35px !important;
-//    &:last-child {
-//      margin-right: 0 !important;
-//    }
-//  }
-//  .b-catalog__item {
-//    width: 266px !important;
-//    .b-catalog__item-img {
-//      width: 266px !important;
-//      height: 200px !important;
-//      &#b-catalog__item-img_spk-okna {
-//        background-image: url('../img/m/spk/okna.jpg')  !important;
-//      }
-//    }
-//  }
+  .b-catalog__item-wrap {
+    position: relative;
+    width: 272px !important;
+    height: 252px !important;
+    margin-right: 35px !important;
+    &:last-child {
+      margin-right: 0 !important;
+    }
+  }
+  .b-catalog__item {
+    width: 266px !important;
+    .b-catalog__item-img {
+      width: 266px !important;
+      height: 200px !important;
+      &#b-catalog__item-img_snickers {
+        background-image: url('../img/snickers.jpg');
+      }
+      &#b-catalog__item-img_bounty {
+        background-image: url('../img/bounty.jpg');
+      }
+      &#b-catalog__item-img_twix {
+        background-image: url('../img/twix.jpg');
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 780px) {

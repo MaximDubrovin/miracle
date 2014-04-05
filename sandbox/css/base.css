@@ -1,5 +1,5 @@
 /*
- Miracle 1.0.0, 04.04.14 02:06
+ Miracle 1.0.0, 05.04.14 23:14
  © 2014, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md 
 */
 
@@ -309,7 +309,27 @@ h2 {
   html {
     font-size: 56.25%;
     -webkit-transition: font-size 0.2s ease-in-out 0s;
-    transition: font-size 0.2s ease-in-out 0s; } }
+    transition: font-size 0.2s ease-in-out 0s; }
+
+  .b-catalog__item-wrap {
+    position: relative;
+    width: 272px !important;
+    height: 252px !important;
+    margin-right: 35px !important; }
+    .b-catalog__item-wrap:last-child {
+      margin-right: 0 !important; }
+
+  .b-catalog__item {
+    width: 266px !important; }
+    .b-catalog__item .b-catalog__item-img {
+      width: 266px !important;
+      height: 200px !important; }
+      .b-catalog__item .b-catalog__item-img#b-catalog__item-img_snickers {
+        background-image: url("../img/snickers.jpg"); }
+      .b-catalog__item .b-catalog__item-img#b-catalog__item-img_bounty {
+        background-image: url("../img/bounty.jpg"); }
+      .b-catalog__item .b-catalog__item-img#b-catalog__item-img_twix {
+        background-image: url("../img/twix.jpg"); } }
 @media only screen and (max-width: 780px) {
   #b-header__logo {
     font-size: 4rem !important; }
