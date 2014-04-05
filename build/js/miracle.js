@@ -1,5 +1,5 @@
 /*
- Miracle 1.0.0, 04.04.14 02:06
+ Miracle 1.0.0, 06.04.14 02:46
  © 2014, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md 
 */
 
@@ -81,10 +81,13 @@ M.init = function() {
             miracle.origin = miracle.props.mOrigin;
             miracle.translate = miracle.props.mTranslate;
             miracle.duration = miracle.props.mDuration;
+            miracle.trigger = miracle.props.mTrigger;
             miracle.awaitLoad = miracle.props.mAwaitLoad;
             miracle.awaitShow = miracle.props.mAwaitShow;
             miracle.timeout = miracle.props.mTimeout;
             miracle.spinner.use = miracle.props.mSpinner;
+
+            M.bindEvents(miracle);
 
             M.defineSelectors(miracle);
 
@@ -212,6 +215,22 @@ M.findImgs = {
 }
 
 
+/* Custom events for different purposes */
+M.bindEvents = function(miracle) {
+
+    miracle.$.on('m-shown', function() {
+        //var miracle = $(this)
+        //miracle.$.data('m-shown', true);
+    });
+
+    miracle.$.on('m-ready', function() {
+        miracle.$.data('m-ready', true);
+        M.showMiracle.show(miracle);
+    });
+}
+
+
+
 M.bindImgs = function(miracle, allImgs) {
 
     allImgs.on('load', function() {
@@ -235,15 +254,19 @@ M.showMiracle = {
     prepare: function(miracle) {
         M.spinner.show(miracle);
 
-        if (miracle.awaitShow) {
-            /* should miracle await when other miracle will be shown? */
-            M.showMiracle.await.show(miracle);
-        } else if (miracle.awaitLoad) {
-            /* should miracle await when other miracle will be loaded? */
-            M.showMiracle.await.load(miracle);
-        } else {
-            /* don't await any other miracle — show as fast as loaded */
-            M.showMiracle.show(miracle);
+        if (!miracle.trigger) {
+            /* do nothing if miracle must starts to show after trigger */
+
+            if (miracle.awaitShow) {
+                /* should miracle await when other miracle will be shown? */
+                M.showMiracle.await.show(miracle);
+            } else if (miracle.awaitLoad) {
+                /* should miracle await when other miracle will be loaded? */
+                M.showMiracle.await.load(miracle);
+            } else {
+                /* don't await any other miracle — show as fast as loaded */
+                M.showMiracle.show(miracle);
+            }
         }
     },
 
