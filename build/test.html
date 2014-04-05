@@ -25,10 +25,11 @@
         <div id="b-catalog">
             <div class="b-catalog__section clearfix">
                 <div class="b-catalog__section-header">
+                    <button onClick="console.log('button clicked'); $('#snickers').trigger('m-ready');">RELEASE THE SNICKERS</button>
                     <h1><a href="#">Title</a></h1>
                     <div class="b-catalog__section-header_sub">some description words here</div>
                 </div>
-                <div class="b-catalog__item-wrap clearfix miracle" data-m-id="first" data-m-effect="ease-x" data-m-origin="left" data-m-await-load="third">
+                <div id="snickers" class="b-catalog__item-wrap clearfix miracle" data-m-trigger="true" data-m-id="first" data-m-effect="ease-x" data-m-origin="left" data-m-await-load="third">
                     <div class="b-catalog__item">
                         <a href="#">
                             <div id="b-catalog__item-img_snickers" class="b-catalog__item-img"></div>
@@ -48,7 +49,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="b-catalog__item-wrap clearfix miracle" data-m-id="third" data-m-effect="ease-x" data-m-origin="right" data-m-await-load="first">
+                <div class="b-catalog__item-wrap clearfix miracle" data-m-id="third" data-m-effect="ease-x" data-m-origin="right" data-m-await-show="first">
                     <div class="b-catalog__item">
                         <a href="#">
                             <div id="b-catalog__item-img_twix" class="b-catalog__item-img"></div>
