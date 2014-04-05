@@ -95,7 +95,7 @@ module.exports = function(grunt) {
             }
         },
         csso : {
-            compress: {
+            base: {
                 options: {
                     banner: '<%= meta.banner %>',
                     report: 'gzip'
@@ -143,18 +143,28 @@ module.exports = function(grunt) {
         compress: {
             min: {
                 options: {
-                    archive: '../miracle-<%= pkg.version %> min.zip'
+                    archive: '../miracle-<%= pkg.version %>-min.zip'
                 },
                 files: [
-                    {expand: true, cwd: '../', src: 'miracle.min.js', dest: 'miracle-<%= pkg.version %> min/'}
+                    {
+                        expand: true,
+                        cwd: '../',
+                        src: 'miracle.min.js',
+                        dest: 'miracle-<%= pkg.version %>-min/'
+                    }
                 ]
             },
             uncompressed: {
                 options: {
-                    archive: '../miracle-<%= pkg.version %> uncompressed.zip'
+                    archive: '../miracle-<%= pkg.version %>-uncompressed.zip'
                 },
                 files: [
-                    {expand: true, cwd: '../', src: 'miracle.js', dest: 'miracle-<%= pkg.version %> uncompressed/'}
+                    {
+                        expand: true,
+                        cwd: '../',
+                        src: 'miracle.js',
+                        dest: 'miracle-<%= pkg.version %>-uncompressed/'
+                    }
                 ]
             }
         },
@@ -173,10 +183,11 @@ module.exports = function(grunt) {
 
     grunt.registerTask('run-server',['connect']);
 
-    grunt.registerTask('build',['concat:js','uglify:js','sass:base','autoprefixer:base','csso:compress','copy:html','copy:js_libs','imagemin']);
+    grunt.registerTask('build-plugin',['concat:js','uglify:js']);
 
-    grunt.registerTask('compress-min',['compress:min']);
-    grunt.registerTask('compress-uncompressed',['compress:uncompressed']);
+    grunt.registerTask('build-webpages',['sass','autoprefixer','csso','copy:html','copy:js_libs','imagemin']);
+
+    grunt.registerTask('build-release',['compress:min']);
 
     grunt.registerTask('default',['watch']);
 }
