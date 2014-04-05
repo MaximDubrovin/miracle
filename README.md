@@ -3,6 +3,8 @@
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
 
 Miracle plugin gives you control over elements appearance on page load.
+
+[Basic example](http://maximdubrovin.github.io/miracle/build/e/basic.html)
  
 Declare with ease right in element attributes: 
 - predefined customizable show effects
@@ -52,7 +54,7 @@ Assign class «miracle» to element:
 
 On page load plugin waits when all image dependencies of miracle loaded then shows miracle with effect.
 
-Images dependenicies: 
+Images dependencies: 
 - ```<img/> ``` elements 
 - css ```background-image``` & ```background``` declarations with ```url()```
 - multiple backgrounds are handled too
@@ -81,7 +83,7 @@ Miracles have __implicitly declared properties__ which plugin needs to create ba
 
 ## Predefined show effects
 
-Choose one that you like. Predifiend effects designed to work without any customization but if you want there all what you need — 
+Choose one that you like. Predefined effects designed to work without any customization but if you want there all what you need — 
 [Predefined effects settings](https://github.com/MaximDubrovin/Miracle#predefined-effects-settings).
 
 #### data-m-effect = «predefined effect name»
@@ -90,9 +92,9 @@ Default: «fade-in»
 Predefined effects names:
 - __fade-in__: Transition from ```opacity: 0``` to ```opacity: 1```.
 
-- __ease-y__: Transition from ```scaleY(0.9)``` to ```scaleY(1)``` gives ellegant presentation effect.
+- __ease-y__: Transition from ```scaleY(0.9)``` to ```scaleY(1)``` gives elegant presentation effect.
 
-- __ease-x__: Transition from ```scaleX(0.9)``` to ```scaleX(1)``` gives ellegant presentation effect.
+- __ease-x__: Transition from ```scaleX(0.9)``` to ```scaleX(1)``` gives elegant presentation effect.
   
 - __from-space__: Miracle lands from outer space like apps icons on iOS. Transition from ```scale(3)```, ```translate(-200px)``` to ```scale(1)``` and original position.
 
@@ -330,6 +332,14 @@ _Example:_
 <div class="miracle" data-m-await-load="first">...</div>
 ```
 
+### Mutual ```data-m-await-load```
+Two miracles can await each other «loaded» signal and show synchronously.
+
+```html
+<div class="miracle" data-m-id="yellow" data-m-await-load="red">...</div>
+<div class="miracle" data-m-id="red" data-m-await-load="yellow">...</div>
+```
+
 #### data-m-await-show = «m-id» or "prev"
 
 Miracle waits when miracle with specified m-id or just previous miracle will be shown then shows himself
@@ -357,7 +367,9 @@ _Example:_
 
 ## Properties inheritance
 
-One miracle can inherit other miracle properties. You don't need to repeat the similar properties between similar miracles. Especially bad case may be when your need to pollute your code with repeating same custom effect. One miracle which lend properties called «typical», one which borrow properties called «similar».
+One miracle can inherit other miracle properties. You don't need to repeat the similar properties between similar miracles. Especially bad case may be when your need to pollute your code with repeating same custom effect. 
+
+One miracle which lend properties called «typical», one which borrow properties called «similar».
 
 #### data-m-inherit = «m-id»
 
@@ -383,16 +395,33 @@ data-m-spinner="true">
 data-m-duration="111" data-m-await="typical-miracle">
 ```
 
-Second miracle inherits all «typical-miracle» properties, rewrites ```data-m-duration="propertie"``` and extend his properties with ```data-m-await="typical-miracle"```.
+Second miracle inherits all «typical-miracle» properties, rewrites ```data-m-duration``` property and extends his properties with ```data-m-await="typical-miracle"```.
 
 # Browser support
 Supported: Modern webkit browsers, Firefox, IE 11. 
 
-In other browsers page loads as usual, without any special appearence.
+In other browsers page loads as usual, without any special appearance.
 
 # Contributing
-Look at readme in «dev» branch.
+- «master» branch contains last stable build that corresponds to the latest [release](https://github.com/MaximDubrovin/miracle/releases).
+- «dev» branch contains stuff under development (plugin js and other supportive things) that later will be merged with «master». May not correspond with my local changes in «dev» branch.
+- «gh-pages» branch is just a «dev» copy for github pages of project.
+
+### How to build
+1. Ensure that you have the latest [Node.js](nodejs.org) installed.
+2. Fork and clone repo.
+3. Run ```npm install``` in «grunt» directory.
+4. Run ```grunt build-plugin``` to build plugin js from «sandbox/js» files. You can find builded «miracle.js» & «miracle.min.js» in «build/js» directory. Run «grunt watch-changes».
+5. Edit files only in «sandbox» directory. Grunt compiles all to «build» directory (js, css from sass, imgs, htmls).
+6. If you want add another js file (new module for plugin) to «sandbox/js» then you should include file path to this js file to «Gruntfile.js» ```<%= meta.js %>```
+7. It's convenient to run «grunt run-server» and go to «http://0.0.0.0:9001/test.html» in browser for testing your js build. «test.html» uses files from «build» directory.
+
+Look at other grunt tasks in «Gruntfile.js» for various purposes.
+
+### Submitting pull requests
+1. Create a new branch, please don’t work in your «master» branch directly.
+2. Add stuff. Follow the conventions you see used in the source already.
+3. Push to your fork and submit a pull request to Miracle’s develop branch.
 
 # Warning:
 - Plugin occupies ```M``` global variable.
-- Currently plugin doesn't handle image dependencies such as: ```list-style-img```, ```border-img```, and images in pseudo elements.
