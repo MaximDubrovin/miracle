@@ -41,7 +41,7 @@ module.exports = function(grunt) {
             },
             styles: {
                 files: '<%= meta.sass %>',
-                tasks: ['sass:base','autoprefixer:base','csso:compress']
+                tasks: ['sass','autoprefixer','csso']
             },
             html: {
                 files: '<%= meta.html %>',
