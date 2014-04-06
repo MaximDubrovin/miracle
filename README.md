@@ -367,7 +367,7 @@ $('#some-id').trigger('m-ready');
 
 _Example:_
 ```html
-<div id="some-id" class="miracle" data-m-await-trigger="first">...</div>
+<div id="some-id" class="miracle" data-m-await-trigger="true">...</div>
 ```
 ```javascript
 $('#some-id').trigger('m-ready');
