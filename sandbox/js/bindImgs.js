@@ -10,8 +10,7 @@ M.bindImgs = function(miracle, allImgs) {
         if (miracle.imgsLoadedCounter >= allImgs.length) {
             /* Wait until all images dependencies are loaded */
 
-            miracle.$.data('m-loaded', true);
-            M.showMiracle.prepare(miracle);
+            miracle.$.trigger('m-loaded');
         }
     });
 }

@@ -21,6 +21,10 @@ M.init = function() {
             /* Props defined by plugin for further usage */
             miracle.$ = $(this);
             miracle.name = M.getUniqueName();
+            miracle.$.data('m-name', miracle.name);
+            M.vars.dfd.loaded[miracle.name] = $.Deferred();
+            M.vars.dfd.shown[miracle.name] = $.Deferred();
+            M.vars.dfd.triggered[miracle.name] = $.Deferred();
             miracle.imgsLoadedCounter = 0;
             miracle.spinner = {};
 
@@ -38,23 +42,28 @@ M.init = function() {
             miracle.origin = miracle.props.mOrigin;
             miracle.translate = miracle.props.mTranslate;
             miracle.duration = miracle.props.mDuration;
-            miracle.trigger = miracle.props.mTrigger;
+            miracle.awaitTrigger = miracle.props.mAwaitTrigger;
             miracle.awaitLoad = miracle.props.mAwaitLoad;
             miracle.awaitShow = miracle.props.mAwaitShow;
             miracle.timeout = miracle.props.mTimeout;
             miracle.spinner.use = miracle.props.mSpinner;
 
+            M.defineSelectors(miracle);
+
+            /* Binds should go before any triggers. Binds setups when
+            miracle's deferreds should be resolved */
             M.bindEvents(miracle);
 
-            M.defineSelectors(miracle);
+            /* Prepare setups what should be done when miracle's
+            deferred resolved */
+            M.showMiracle.prepare(miracle);
 
             allImgs = M.findImgs.init(miracle);
 
             if (allImgs.length) {
                 M.bindImgs(miracle, allImgs);
             } else {
-                miracle.$.data('m-loaded', true);
-                M.showMiracle.prepare(miracle);
+                miracle.$.trigger('m-loaded');
             }
         });
     }

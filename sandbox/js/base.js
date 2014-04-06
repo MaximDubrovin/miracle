@@ -35,5 +35,10 @@ M.settings = {
 
 /* Plugin «global» variables home */
 M.vars = {
-    miracleStyleElem: undefined
+    miracleStyleElem: undefined,
+    dfd: {
+        loaded: {},
+        shown: {},
+        triggered: {}
+    }
 };

@@ -1,13 +1,14 @@
 
 M.showMiracle = {
 
+    /* Prepare setups what should be done when miracle's
+     deferred resolved */
     prepare: function(miracle) {
         M.spinner.show(miracle);
 
-        if (!miracle.trigger) {
-            /* do nothing if miracle must starts to show after trigger */
-
-            if (miracle.awaitShow) {
+            if (miracle.awaitTrigger) {
+                M.showMiracle.await.trigger(miracle);
+            } else if (miracle.awaitShow) {
                 /* should miracle await when other miracle will be shown? */
                 M.showMiracle.await.show(miracle);
             } else if (miracle.awaitLoad) {
@@ -17,37 +18,62 @@ M.showMiracle = {
                 /* don't await any other miracle — show as fast as loaded */
                 M.showMiracle.show(miracle);
             }
-        }
     },
 
     await: {
 
         load: function(miracle) {
-            var $awaitMiracle, awaitId;
+            var $awaitedMiracle, awaitedId, miracleDfdName, awaitedMiracleDfdName;
 
+            /* find awaited miracle */
             if (miracle.awaitLoad == 'prev') {
-                $awaitMiracle = miracle.$.prev('.miracle');
+                $awaitedMiracle = miracle.$.prev('.miracle');
             } else {
-                awaitId = "[data-m-id='" + miracle.awaitLoad + "']";
-                $awaitMiracle = $(awaitId);
+                awaitedId = "[data-m-id='" + miracle.awaitLoad + "']";
+                $awaitedMiracle = $(awaitedId);
             }
 
-            if ($awaitMiracle.hasClass('miracle')) {
-                /* await miracle must have class «miracle» to cooperate with other miracles */
+            if ($awaitedMiracle.hasClass('miracle')) {
+                miracleDfdName = miracle.name;
+                awaitedMiracleDfdName = $awaitedMiracle ? $awaitedMiracle.data('m-name'): {};
 
-                var checkAwaitMiracleLoaded = setInterval(function() {
-                    if (miracle.$.data('m-loaded')) {
-                        /* firstly check miracle loaded status */
+                //console.log($awaitedMiracle,miracleDfdName, awaitedMiracleDfdName);
 
-                        if ($awaitMiracle.data('m-loaded')) {
-                            /* secondly check await miracle loaded status */
+                /* Miracle should be notified when it is loaded and
+                 when awaited miracle is loaded. So there inverted check from
+                 both deferred events */
 
-                            M.showMiracle.show(miracle);
+                /* deferred from miracle that awaits */
+                if (M.vars.dfd.loaded[miracleDfdName]) {
+                    M.vars.dfd.loaded[miracleDfdName].done(function(eType) {
+                        if (eType && eType == 'm-loaded') {
+                            /* 'm-loaded' comes from miracle so
+                             we need also know when awaited miracle is loaded  */
 
-                            clearInterval(checkAwaitMiracleLoaded);
+                            //console.log('loaded', miracleDfdName)
+
+                            if ($awaitedMiracle.data('m-loaded')) {
+                                M.showMiracle.show(miracle);
+                            }
                         }
-                    }
-                }, 5)
+                    });
+                }
+
+                /* deferred from awaited miracle */
+                if (M.vars.dfd.loaded[awaitedMiracleDfdName]) {
+                    M.vars.dfd.loaded[awaitedMiracleDfdName].done(function(eType) {
+                        if (eType && eType == 'm-loaded') {
+                            /* 'm-shown' comes from awaited miracle so
+                             we need also know when miracle is loaded  */
+
+                            //console.log('loaded', awaitedMiracleDfdName)
+
+                            if (miracle.$.data('m-loaded')) {
+                                M.showMiracle.show(miracle);
+                            }
+                        }
+                    });
+                }
             } else {
                 console.log('MIRACLE ERROR: There is no miracle to await for this miracle:', miracle);
                 M.showMiracle.show(miracle);
@@ -55,34 +81,71 @@ M.showMiracle = {
         },
 
         show: function(miracle) {
-            var $awaitMiracle, awaitId;
+            var $awaitedMiracle, awaitedId, miracleDfdName, awaitedMiracleDfdName;
 
+            /* find awaited miracle */
             if (miracle.awaitShow == 'prev') {
-                $awaitMiracle = miracle.$.prev('.miracle');
+                $awaitedMiracle = miracle.$.prev('.miracle');
             } else {
-                awaitId = "[data-m-id='" + miracle.awaitShow + "']";
-                $awaitMiracle = $(awaitId);
+                awaitedId = "[data-m-id='" + miracle.awaitShow + "']";
+                $awaitedMiracle = $(awaitedId);
             }
 
-            if ($awaitMiracle.hasClass('miracle')) {
-                /* await miracle must have class .miracle to cooperate with other miracles */
+            if ($awaitedMiracle.hasClass('miracle')) {
+                miracleDfdName = miracle.name;
+                awaitedMiracleDfdName = $awaitedMiracle ? $awaitedMiracle.data('m-name'): {};
 
-                var checkAwaitMiracleLoaded = setInterval(function() {
-                    if (miracle.$.data('m-loaded')) {
-                        /* firstly check miracle loaded status */
+                /* Miracle should be notified when it is loaded and
+                 when awaited miracle is shown. So there inverted check from
+                 both deferred events */
 
-                        if ($awaitMiracle.data('m-shown')) {
-                            /* secondly check await miracle shown status */
+                /* deferred from miracle that awaits */
+                if (M.vars.dfd.loaded[miracleDfdName]) {
+                    M.vars.dfd.loaded[miracleDfdName].done(function(eType) {
+                         if (eType && eType == 'm-loaded') {
+                            /* 'm-loaded' comes from miracle so
+                             we need also know when awaited miracle is shown  */
 
-                            M.showMiracle.show(miracle);
+                             //console.log('loaded', miracleDfdName)
 
-                            clearInterval(checkAwaitMiracleLoaded);
+                             if ($awaitedMiracle.data('m-shown')) {
+                                M.showMiracle.show(miracle);
+                             }
+                         }
+                    });
+                }
+
+                /* deferred from awaited miracle */
+                if (M.vars.dfd.shown[awaitedMiracleDfdName]) {
+                    M.vars.dfd.shown[awaitedMiracleDfdName].done(function(eType) {
+                        if (eType && eType == 'm-shown') {
+                            /* 'm-shown' comes from awaited miracle so
+                             we need also know when miracle is loaded  */
+
+                            //console.log('shown', awaitedMiracleDfdName)
+
+                            if (miracle.$.data('m-loaded')) {
+                                M.showMiracle.show(miracle);
+                            }
                         }
-                    }
-                }, 5)
+                    });
+                }
             } else {
                 console.log('MIRACLE ERROR: There is no miracle to await for this miracle:', miracle);
                 M.showMiracle.show(miracle);
+            }
+        },
+
+        trigger: function(miracle) {
+            var miracleDfdName = miracle.name;
+
+            if (M.vars.dfd.triggered[miracleDfdName]) {
+                M.vars.dfd.triggered[miracleDfdName].done(function(eType) {
+                    if (eType && eType == 'm-triggered') {
+                        /* triggered miracle shows immediately */
+                        M.showMiracle.show(miracle);
+                    }
+                });
             }
         }
     },
