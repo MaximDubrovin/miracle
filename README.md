@@ -33,6 +33,7 @@ __API navigation__
 - Await
   - [data-m-await-load](#data-m-await-load--m-id-or-prev)
   - [data-await-show](#data-m-await-show--m-id-or-prev)
+  - [data-m-trigger](#data-m-await-trigger--true)
 - [data-m-timeout](#data-m-timeout--time-in-ms)
 - [data-m-inherit](#data-m-inherit--m-id)
 
