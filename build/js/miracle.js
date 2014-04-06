@@ -1,5 +1,5 @@
 /*
- Miracle 1.0.0, 06.04.14 16:20
+ Miracle 1.0.1, 06.04.14 17:12
  © 2014, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md 
 */
 

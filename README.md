@@ -1,4 +1,4 @@
-# Miracle 1.0.0
+# Miracle 1.0.1
 
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
 
