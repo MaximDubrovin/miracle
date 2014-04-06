@@ -2,7 +2,7 @@
 
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
 
-Miracle plugin gives you control over elements appearance on page load.
+Miracle plugin gives you control over elements appearance. Wait when element's img dependencies loaded, other element's show effect ended or when you programmatically trigger element's show start then show element with super-customizable show effects. 
 
 [Basic example](http://maximdubrovin.github.io/miracle/build/e/basic.html)
  
@@ -318,9 +318,9 @@ data-m-spinner="true">...</div>
 
 In case above second miracle inherits ```data-m-effect```, ```data-m-duration``` and ```data-m-spinner``` properties from miracle with m-id «godzilla».
 
-## Await another miracle
+## Await another miracle or own trigger
 
-Miracle can await when another miracle will be «loaded» or «shown» before start to show himself. You can run complex ordered miracles orchestra. Declare and Conquer.
+Miracle can await when another miracle will be «loaded» or «shown» before start to show himself or own trigger. You can run complex ordered miracles orchestra. Declare and Conquer.
 
 #### data-m-await-load = «m-id» or "prev"
 
@@ -353,6 +353,24 @@ _Example:_
 _Note:_
 
 «m-id» of awaited miracle can't be "prev".
+
+#### data-m-await-trigger = "true"
+
+Miracle doesn't start to show himself until your programmatically command to him from your code.
+
+How to command to show miracle whenever you want:
+
+```javascript
+$('#some-id').trigger('m-ready');
+```
+
+_Example:_
+```html
+<div id="some-id" class="miracle" data-m-await-trigger="first">...</div>
+```
+```javascript
+$('#some-id').trigger('m-ready');
+```
 
 ## Show timeout
 
