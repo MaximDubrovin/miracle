@@ -15,8 +15,16 @@ M.showMiracle = {
                 /* should miracle await when other miracle will be loaded? */
                 M.showMiracle.await.load(miracle);
             } else {
+                var miracleDfdName = miracle.name;
+
                 /* don't await any other miracle — show as fast as loaded */
-                M.showMiracle.show(miracle);
+                if (M.vars.dfd.loaded[miracleDfdName]) {
+                    M.vars.dfd.loaded[miracleDfdName].done(function(eType) {
+                        if (eType && eType == 'm-loaded') {
+                            M.showMiracle.show(miracle);
+                        }
+                    });
+                }
             }
     },
 
