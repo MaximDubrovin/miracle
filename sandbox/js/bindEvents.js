@@ -24,9 +24,9 @@ M.bindEvents = function(miracle) {
         }
     });
 
-    miracle.$.on('m-ready', function() {
+    miracle.$.on('m-show', function() {
 
-        miracle.$.data('m-ready', true);
+        miracle.$.data('m-show', true);
 
         if (M.vars.dfd.triggered[miracle.name]) {
             M.vars.dfd.triggered[miracle.name].resolve('m-triggered');
