@@ -11,7 +11,8 @@ M.parseBgImgUrls = function($element) {
     if ($element.css('background-image') != "none") {
         bgImgDeclar = $element.css('background-image');
 
-        /* match returns array of «url(..)» values */
+        /* match returns array of «url(..)» values
+        (for multiple backgrounds support) */
         bgImgs = bgImgDeclar.match(urlRE);
 
 
