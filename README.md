@@ -28,25 +28,31 @@ __API navigation__
   - [data-m-style-init](#data-m-style-init--css-declarations)
   - [data-m-style-final](#data-m-style-final--css-declarations)
 - [data-m-opaque](#data-m-opaque--true)
-- [data-m-spinner](#data-m-spinner--true)
-- [data-m-id](#data-m-id--type-what-you-want)
+- [data-m-timeout](#data-m-timeout--time-in-ms)
+- Spinner 
+  - [data-m-spinner](#data-m-spinner--true)
+  - [data-m-spinner-style](#data-m-spinner-style--your-custom-style-name)
+- [data-m-id](#data-m-id--name-it-as-you-like)
 - Await
   - [data-m-await-load](#data-m-await-load--m-id-or-prev)
-  - [data-await-show](#data-m-await-show--m-id-or-prev)
-  - [data-m-trigger](#data-m-await-trigger--true)
-- [data-m-timeout](#data-m-timeout--time-in-ms)
+  - [data-m-await-show](#data-m-await-show--m-id-or-prev)
+  - [data-m-await-trigger](#data-m-await-trigger--true)
 - [data-m-inherit](#data-m-inherit--m-id)
 
 # How it works?
 
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
 
-Add this to ```<head/>```:
-````html
+In your ```<html/>``` add this to ```<head/>```:
+```html
+<head>
+...
 <script src="js/jquery-1.11.0.min.js"></script>
 <script src="js/spin.js"></script> <!-- optional -->
 <script src="js/miracle.min.js"></script>
-````
+...
+<head/>
+```
 
 Assign class «miracle» to element:
 ```html
@@ -271,6 +277,17 @@ _Example:_
 <div class="miracle" data-m-opaque="true">
 ```
 
+## Show timeout
+
+Before shows himself miracle can wait some time after all other delays. 
+
+#### data-m-timeout = «time in ms»
+
+_Example:_
+```html
+<div class="miracle" data-m-timeout="1000">...</div>
+```
+
 ## Spinner
 
 #### data-m-spinner = "true"
@@ -295,11 +312,45 @@ _Note:_
 - Miracle should have ```position: relative```, because spinner will be centered inside miracle with ```position: absolute; width: 0px; left: 50%; top: 50%```.
 - If there is no ```spin.js``` in HTML — there won't be a spinner.
 
+#### data-m-spinner-style = «your custom style name»
+
+You can set your own spinner style for miracle and apply this style only to selected miracles.
+
+Go to [spin.js page](http://fgnass.github.io/spin.js/) and configure your spinner style with handy sliders. Under title «Usage» on this page you will see object ```var opts = {...}``` with spinner's style options.
+
+In your ```<html/>``` in ```<head/>``` add ```<script/>``` tag _after_ miracle.js:
+```html
+<head>
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/spin.js"></script>
+<script src="js/miracle.min.js"></script>
+<script>
+	M.settings.spinner.style.customSpinnerStyle = {
+            lines: 5, 
+            length: 10,
+            width: 2,
+						//... etc.
+  }
+</script>
+</head>
+```
+In this ```<script/>``` tag create ```M.settings.spinner.style.customSpinnerStyle``` object where ```customSpinnerStyle``` is name of your custom spinner style.
+
+Copy your earlier configured spinner options to this object.
+
+Declare ```data-m-spinner-style``` property for miracle with ```customSpinnerStyle``` as value:
+```html
+<div class="miracle" data-m-spinner="true" 
+data-m-style="customSpinnerStyle">...</div>
+```
+
+Done. Plugin will use your custom spinner style for this miracle. 
+
 ## Miracle id (m-id)
 
 It is utility miracle property. It doesn't affect miracle appearance. Properties like «data-m-await-show» or «data-m-inherit» need it.
 
-#### data-m-id = «type what you want»
+#### data-m-id = «name it as you like»
 
 _Example:_
 ```html
@@ -371,17 +422,6 @@ _Example:_
 ```
 ```javascript
 $('#some-id').trigger('m-ready');
-```
-
-## Show timeout
-
-Before shows himself miracle can wait some time after all other delays. 
-
-#### data-m-timeout = «time in ms»
-
-_Example:_
-```html
-<div class="miracle" data-m-timeout="1000">...</div>
 ```
 
 ## Properties inheritance
