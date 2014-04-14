@@ -6,18 +6,18 @@ M.findImgs = {
          as <img /> elements. Note: css background images will be also presented as <img /> elements
          through simulation for convenient load event handling */
 
-        var allImgs, imgElems, bgImgs;
+        var allImgs, imgElems, cssImgs;
 
         if (miracle.$.is('img')) {
             allImgs = miracle.$
         } else {
             imgElems = M.findImgs.imgElems(miracle);
-            bgImgs = M.findImgs.bgImgs(miracle);
+            cssImgs = M.findImgs.cssImgs(miracle);
 
             allImgs = imgElems;
-            if (bgImgs.length) {
-                for (var i = 0, l = bgImgs.length; i < l; i++) {
-                    allImgs = allImgs.add(bgImgs[i]);
+            if (cssImgs.length) {
+                for (var i = 0, l = cssImgs.length; i < l; i++) {
+                    allImgs = allImgs.add(cssImgs[i]);
                 }
             }
         }
@@ -32,29 +32,29 @@ M.findImgs = {
         return miracle.$.find('img');
     },
 
-    bgImgs: function(miracle) {
-        /* find all css background image dependencies
+    cssImgs: function(miracle) {
+        /* find all css images dependencies
          & return them as array of img elements */
 
-        var bgImgs = [],
+        var cssImgs = [],
             miracleAndChildren = miracle.$.find('*').add(miracle.$);
 
         miracleAndChildren.each(function() {
             var $element = $(this),
-                bgImgUrls = M.parseBgImgUrls($element),
-                bgImgUrl,
+                cssImgUrls = M.parseImgUrls($element),
+                cssImgUrl,
                 $img;
 
-            if (bgImgUrls.length) {
-                for (var i = 0, l = bgImgUrls.length; i < l; i++ ) {
-                    bgImgUrl = bgImgUrls[i];
+            if (cssImgUrls.length) {
+                for (var i = 0, l = cssImgUrls.length; i < l; i++ ) {
+                    cssImgUrl = cssImgUrls[i];
                     /* simulate bg imgs as <img/> elements */
-                    $img = $('<img/>').attr('src', bgImgUrl);
-                    bgImgs.push($img);
+                    $img = $('<img/>').attr('src', cssImgUrl);
+                    cssImgs.push($img);
                 }
             }
         });
 
-        return bgImgs;
+        return cssImgs;
     }
 }

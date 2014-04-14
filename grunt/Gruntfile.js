@@ -28,7 +28,7 @@ module.exports = function(grunt) {
                 '../sandbox/js/defineSelectors.js',
                 '../sandbox/js/getUniqueName.js',
                 '../sandbox/js/markAsShown.js',
-                '../sandbox/js/parseBgImgUrls.js',
+                '../sandbox/js/parseImgUrls.js',
                 '../sandbox/js/domready.js'
             ]
         },
