@@ -65,6 +65,7 @@ module.exports = function(grunt) {
                     '../build/js/miracle.min.js': ['../build/js/miracle.js']
                 },
                 options: {
+                    mangle: true,
                     banner: '<%= meta.banner %>',
                     report: 'gzip'
                 }
