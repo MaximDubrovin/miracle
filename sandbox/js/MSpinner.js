@@ -3,26 +3,39 @@ M.spinner = {
 
     show: function(miracle) {
         if (typeof Spinner != 'undefined' && miracle.spinner.use) {
+            var spinnerStyle, spinnerStyleName;
 
             /* (trick) Because we can't make opaque spinner inside transparent miracle
              we need to make miracle opaque until miracle show starts */
             miracle.$.css('opacity', '1');
             miracle.$.css('visibility', 'hidden');
 
-            /* create spinner */
-            miracle.spinner.this = new Spinner(M.settings.spinnerOpts).spin();
+            /* Check for custom spinner style */
+            if (miracle.spinner.style) {
+                spinnerStyleName = miracle.spinner.style;
+                if (M.settings.spinner.style[spinnerStyleName]) {
+                    spinnerStyle = M.settings.spinner.style[spinnerStyleName];
+                } else {
+                    spinnerStyle = M.settings.spinner.style.def;
+                }
+            } else {
+                spinnerStyle = M.settings.spinner.style.def;
+            }
 
-            /* get spinner element */
+            /* Create spinner */
+            miracle.spinner.this = new Spinner(spinnerStyle).spin();
+
+            /* Get spinner element */
             miracle.spinner.$ = $(miracle.spinner.this.el);
 
-            /* styles to center spinner inside miracle */
+            /* Styles to center spinner inside miracle */
             miracle.spinner.$.css({
                 top: '50%',
                 left: '50%',
                 visibility: 'visible'
             });
 
-            /* add spinner inside miracle */
+            /* Add spinner inside miracle */
             miracle.$[0].appendChild(miracle.spinner.this.el)
         }
     },

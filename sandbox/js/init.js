@@ -47,6 +47,7 @@ M.init = function() {
             miracle.awaitShow = miracle.props.mAwaitShow;
             miracle.timeout = miracle.props.mTimeout;
             miracle.spinner.use = miracle.props.mSpinner;
+            miracle.spinner.style = miracle.props.mSpinnerStyle;
 
             M.defineSelectors(miracle);
 
