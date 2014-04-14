@@ -3,10 +3,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Miracle basic example</title>
-    <link rel="stylesheet" href="../css/base.css"/>
-    <script src="../js/libs/jquery-1.11.0.min.js" type="text/javascript"></script>
-    <script src="../js/libs/spin.min.js" type="text/javascript"></script>
-    <script src="../js/miracle.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/base.css"/>
+    <script src="js/libs/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="js/libs/spin.min.js" type="text/javascript"></script>
+    <script src="js/miracle.min.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="b-page" class="clearfix">
@@ -23,12 +23,12 @@
     <div id="b-content" class="clearfix">
         <div id="b-catalog">
             <div class="b-catalog__section clearfix">
-                <button onClick="console.log('btn clicked'); $('#snickers').trigger('m-ready');">RELEASE THE SNICKERS</button>
+                <button onClick="console.log('btn clicked'); $('#snickers').trigger('m-show');">RELEASE THE SNICKERS</button>
                 <div class="b-catalog__section-header miracle" data-m-id="title" data-m-effect="slide" data-m-translate="-400px, 0px" data-m-await-show="nav">
                     <h1><a href="#">Title</a></h1>
                     <div class="b-catalog__section-header_sub">some description words here</div>
                 </div>
-                <div id="snickers" class="b-catalog__item-wrap clearfix miracle" data-m-await-trigger="true" data-m-effect="from-space">
+                <div id="snickers" class="b-catalog__item-wrap clearfix miracle">
                     <div class="b-catalog__item">
                         <a href="#">
                             <div id="b-catalog__item-img_snickers" class="b-catalog__item-img"></div>
@@ -59,6 +59,12 @@
                     </div>
                 </div>
             </div>
+            <div class="b-list-test miracle">
+                <li>One</li>
+                <li>Two</li>
+                <li>Three</li>
+            </div>
+            <div class="b-border-img-test miracle"></div>
         </div>
     </div>
     <div id="b-footer" class="clearfix">

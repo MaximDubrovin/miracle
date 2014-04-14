@@ -256,6 +256,7 @@ h2 {
         background-size: 100%;
         &#b-catalog__item-img_snickers {
           background-image: url('../img/snickers.jpg');
+//          ,url('https://s3-eu-west-1.amazonaws.com/nas-gallery/photos/uktus.JPG');
         }
         &#b-catalog__item-img_bounty {
           background-image: url('../img/bounty.jpg');
@@ -374,6 +375,21 @@ h2 {
   .b-call-me__content-wrap {
     top: 50px !important;
   }
+}
+
+.b-list-test {
+  li {
+    list-style: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/4621/treehouse-marker.png');
+  }
+}
+
+.b-border-img-test {
+  width: 200px;
+  height: 200px;
+  border-image: url('http://www.norabrowndesign.com/css-experiments/images/border1.png');
+  border-width: 10px;
+  border-image-slice: 20%;
+  border-image-repeat: repeat;
 }
 
 /* SNIPPETS */

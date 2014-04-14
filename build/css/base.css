@@ -1,5 +1,5 @@
 /*
- Miracle 1.0.0, 05.04.14 23:14
+ Miracle 1.0.2, 15.04.14 04:09
  © 2014, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md 
 */
 
@@ -345,6 +345,17 @@ h2 {
 
   .b-call-me__content-wrap {
     top: 50px !important; } }
+.b-list-test li {
+  list-style: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/4621/treehouse-marker.png"); }
+
+.b-border-img-test {
+  width: 200px;
+  height: 200px;
+  border-image: url("http://www.norabrowndesign.com/css-experiments/images/border1.png");
+  border-width: 10px;
+  border-image-slice: 20%;
+  border-image-repeat: repeat; }
+
 /* SNIPPETS */
 .b-abs-inner {
   position: relative; }
