@@ -1,11 +1,17 @@
-# Miracle 1.0.1
+# Miracle 1.0.2
 
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
 
-Miracle plugin gives you control over elements appearance. Wait when element's img dependencies loaded, other element's show effect ended or when you programmatically trigger element's show start then show element with super-customizable show effects. 
+Miracle plugin gives you control over appearance of elements. Helps you to turn appearance of elements on page load from stuttering chaos to perfect synchronous performance of the symphony.
 
 [Basic example](http://maximdubrovin.github.io/miracle/build/e/basic.html)
- 
+
+Plugin can wait & show element with effect after:
+- element's images dependencies loaded 
+- other element's show effect ended
+- other element's images dependencies loaded   
+- trigger from your code 
+
 Declare with ease right in element attributes: 
 - predefined customizable show effects
 - fully customizable show effects
@@ -63,8 +69,10 @@ On page load plugin waits when all image dependencies of miracle loaded then sho
 
 Images dependencies: 
 - ```<img/> ``` elements 
-- css ```background-image``` & ```background``` declarations with ```url()```
-- multiple backgrounds are handled too
+- CSS declarations with ```url("...")``` (shorthands & precise variants): 
+   - ```background``` (& ```background-image```; multiple backgrounds are handled too)
+   - ```list-style``` (& ```list-style-image```)
+   - ```border-image``` (& ````border-image-source```)
 
 Without image dependencies miracle shows immediately according to declared properties (effect, custom effect, await, show timeout etc.)
 
@@ -346,7 +354,7 @@ data-m-style="customSpinnerStyle">...</div>
 
 Done. Plugin will use your custom spinner style for this miracle. 
 
-## Miracle id (m-id)
+## Miracle id («m-id»)
 
 It is utility miracle property. It doesn't affect miracle appearance. Properties like «data-m-await-show» or «data-m-inherit» need it.
 
@@ -413,7 +421,7 @@ Miracle doesn't start to show himself until your programmatically command to him
 How to command to show miracle whenever you want:
 
 ```javascript
-$('#some-id').trigger('m-ready');
+$('#some-id').trigger('m-show');
 ```
 
 _Example:_
@@ -421,7 +429,7 @@ _Example:_
 <div id="some-id" class="miracle" data-m-await-trigger="true">...</div>
 ```
 ```javascript
-$('#some-id').trigger('m-ready');
+$('#some-id').trigger('m-show');
 ```
 
 ## Properties inheritance

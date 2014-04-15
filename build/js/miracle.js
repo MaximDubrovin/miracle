@@ -1,5 +1,5 @@
 /*
- Miracle 1.0.1, 06.04.14 17:12
+ Miracle 1.0.2, 15.04.14 04:10
  © 2014, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md 
 */
 
@@ -17,23 +17,25 @@ M.settings = {
         'ease-y': 'ease-out',
         'ease-x': 'ease-out'
     },
-    spinnerOpts: {
-        lines: 9, // The number of lines to draw
-        length: 6, // The length of each line
-        width: 2, // The line thickness
-        radius: 6, // The radius of the inner circle
-        corners: 1, // Corner roundness (0..1)
-        rotate: 0, // The rotation offset
-        direction: 1, // 1: clockwise, -1: counterclockwise
-        color: '#000', // #rgb or #rrggbb or array of colors
-        speed: 1.6, // Rounds per second
-        trail: 72, // Afterglow percentage
-        shadow: false, // Whether to render a shadow
-        hwaccel: false, // Whether to use hardware acceleration
-        className: 'spinner', // The CSS class to assign to the spinner
-        zIndex: 2e9, // The z-index (defaults to 2000000000)
-        top: 'auto', // Top position relative to parent in px
-        left: 'auto' // Left position relative to parent in px
+    spinner: {
+        style: {
+            def: {
+                lines: 9, // The number of lines to draw
+                length: 6, // The length of each line
+                width: 2, // The line thickness
+                radius: 6, // The radius of the inner circle
+                corners: 1, // Corner roundness (0..1)
+                rotate: 0, // The rotation offset
+                direction: 1, // 1: clockwise, -1: counterclockwise
+                color: '#000', // #rgb or #rrggbb or array of colors
+                speed: 1.6, // Rounds per second
+                trail: 72, // Afterglow percentage
+                shadow: false, // Whether to render a shadow
+                hwaccel: true, // Whether to use hardware acceleration
+                className: 'spinner', // The CSS class to assign to the spinner
+                zIndex: 2e9 // The z-index (defaults to 2000000000)
+            }
+        }
     }
 };
 
@@ -95,6 +97,7 @@ M.init = function() {
             miracle.awaitShow = miracle.props.mAwaitShow;
             miracle.timeout = miracle.props.mTimeout;
             miracle.spinner.use = miracle.props.mSpinner;
+            miracle.spinner.style = miracle.props.mSpinnerStyle;
 
             M.defineSelectors(miracle);
 
@@ -175,18 +178,18 @@ M.findImgs = {
          as <img /> elements. Note: css background images will be also presented as <img /> elements
          through simulation for convenient load event handling */
 
-        var allImgs, imgElems, bgImgs;
+        var allImgs, imgElems, cssImgs;
 
         if (miracle.$.is('img')) {
             allImgs = miracle.$
         } else {
             imgElems = M.findImgs.imgElems(miracle);
-            bgImgs = M.findImgs.bgImgs(miracle);
+            cssImgs = M.findImgs.cssImgs(miracle);
 
             allImgs = imgElems;
-            if (bgImgs.length) {
-                for (var i = 0, l = bgImgs.length; i < l; i++) {
-                    allImgs = allImgs.add(bgImgs[i]);
+            if (cssImgs.length) {
+                for (var i = 0, l = cssImgs.length; i < l; i++) {
+                    allImgs = allImgs.add(cssImgs[i]);
                 }
             }
         }
@@ -201,30 +204,30 @@ M.findImgs = {
         return miracle.$.find('img');
     },
 
-    bgImgs: function(miracle) {
-        /* find all css background image dependencies
+    cssImgs: function(miracle) {
+        /* find all css images dependencies
          & return them as array of img elements */
 
-        var bgImgs = [],
+        var cssImgs = [],
             miracleAndChildren = miracle.$.find('*').add(miracle.$);
 
         miracleAndChildren.each(function() {
             var $element = $(this),
-                bgImgUrls = M.parseBgImgUrls($element),
-                bgImgUrl,
+                cssImgUrls = M.parseImgUrls($element),
+                cssImgUrl,
                 $img;
 
-            if (bgImgUrls.length) {
-                for (var i = 0, l = bgImgUrls.length; i < l; i++ ) {
-                    bgImgUrl = bgImgUrls[i];
+            if (cssImgUrls.length) {
+                for (var i = 0, l = cssImgUrls.length; i < l; i++ ) {
+                    cssImgUrl = cssImgUrls[i];
                     /* simulate bg imgs as <img/> elements */
-                    $img = $('<img/>').attr('src', bgImgUrl);
-                    bgImgs.push($img);
+                    $img = $('<img/>').attr('src', cssImgUrl);
+                    cssImgs.push($img);
                 }
             }
         });
 
-        return bgImgs;
+        return cssImgs;
     }
 }
 
@@ -254,9 +257,9 @@ M.bindEvents = function(miracle) {
         }
     });
 
-    miracle.$.on('m-ready', function() {
+    miracle.$.on('m-show', function() {
 
-        miracle.$.data('m-ready', true);
+        miracle.$.data('m-show', true);
 
         if (M.vars.dfd.triggered[miracle.name]) {
             M.vars.dfd.triggered[miracle.name].resolve('m-triggered');
@@ -299,8 +302,16 @@ M.showMiracle = {
                 /* should miracle await when other miracle will be loaded? */
                 M.showMiracle.await.load(miracle);
             } else {
+                var miracleDfdName = miracle.name;
+
                 /* don't await any other miracle — show as fast as loaded */
-                M.showMiracle.show(miracle);
+                if (M.vars.dfd.loaded[miracleDfdName]) {
+                    M.vars.dfd.loaded[miracleDfdName].done(function(eType) {
+                        if (eType && eType == 'm-loaded') {
+                            M.showMiracle.show(miracle);
+                        }
+                    });
+                }
             }
     },
 
@@ -650,26 +661,39 @@ M.spinner = {
 
     show: function(miracle) {
         if (typeof Spinner != 'undefined' && miracle.spinner.use) {
+            var spinnerStyle, spinnerStyleName;
 
             /* (trick) Because we can't make opaque spinner inside transparent miracle
              we need to make miracle opaque until miracle show starts */
             miracle.$.css('opacity', '1');
             miracle.$.css('visibility', 'hidden');
 
-            /* create spinner */
-            miracle.spinner.this = new Spinner(M.settings.spinnerOpts).spin();
+            /* Check for custom spinner style */
+            if (miracle.spinner.style) {
+                spinnerStyleName = miracle.spinner.style;
+                if (M.settings.spinner.style[spinnerStyleName]) {
+                    spinnerStyle = M.settings.spinner.style[spinnerStyleName];
+                } else {
+                    spinnerStyle = M.settings.spinner.style.def;
+                }
+            } else {
+                spinnerStyle = M.settings.spinner.style.def;
+            }
 
-            /* get spinner element */
+            /* Create spinner */
+            miracle.spinner.this = new Spinner(spinnerStyle).spin();
+
+            /* Get spinner element */
             miracle.spinner.$ = $(miracle.spinner.this.el);
 
-            /* styles to center spinner inside miracle */
+            /* Styles to center spinner inside miracle */
             miracle.spinner.$.css({
                 top: '50%',
                 left: '50%',
                 visibility: 'visible'
             });
 
-            /* add spinner inside miracle */
+            /* Add spinner inside miracle */
             miracle.$[0].appendChild(miracle.spinner.this.el)
         }
     },
@@ -737,28 +761,42 @@ M.markAsShown = function(miracle) {
 }
 
 
-M.parseBgImgUrls = function($element) {
+M.parseImgUrls = function($element) {
 
-    var bgImgDeclar,
-        bgImgs,
-        bgImg,
+    /* Parses img urls from computed background-image, list-style-image, border-image-source. */
+    var imgDeclars = [],
+        imgDeclar,
+        imgs,
+        img,
         urls = [],
         url,
         urlRE = /url\(["']?.*?["']?\)/g;
 
     if ($element.css('background-image') != "none") {
-        bgImgDeclar = $element.css('background-image');
+        imgDeclars.push($element.css('background-image'))
+    }
 
-        /* match returns array of «url(..)» values */
-        bgImgs = bgImgDeclar.match(urlRE);
+    if ($element.css('list-style-image') != "none") {
+        imgDeclars.push($element.css('list-style-image'))
+    }
 
+    if ($element.css('border-image-source') != "none") {
+        imgDeclars.push($element.css('border-image-source'))
+    }
 
-        if (bgImgs) {
-            for (var i = 0, l = bgImgs.length; i < l; i++ ) {
-                bgImg = bgImgs[i];
-                /* Cut «url(» & and «)» from «url(..)». It gives plain url.    */
-                url = bgImg.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-                url ? urls.push(url) : {};
+    if (imgDeclars.length) {
+        for (var i = 0, l = imgDeclars.length; i < l; i++ ) {
+            imgDeclar = imgDeclars[i];
+
+            imgs = imgDeclar.match(urlRE);
+
+            if (imgs) {
+                for (var _i = 0, _l = imgs.length; _i < _l; _i++ ) {
+                    img = imgs[_i];
+                    /* Cut «url(» & and «)» from «url(..)». It gives plain url.    */
+                    url = img.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+                    url ? urls.push(url) : {};
+                }
             }
         }
     }
