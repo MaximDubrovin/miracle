@@ -1,0 +1,40 @@
+
+{
+    "name": "miracle",
+    "description": "Miracle plugin gives you control over appearance of elements. Helps you to turn appearance of elements on page load from stuttering chaos to perfect synchronous performance of the symphony.",
+    "version": "1.0.3",
+    "authors": [
+        "Maxim Dubrovin <maxxdubrovin@gmail.com>"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/MaximDubrovin/miracle.git"
+    },
+    "main": [
+        "miracle.min.js",
+        "miracle.js"
+    ],
+    "ignore": [
+        "*",
+        "!miracle.min.js",
+        "!miracle.js"
+    ],
+    "dependencies": {
+        "jquery": "1.11.0",
+        "spin.js": ">=2.0.0"
+    },
+    "keywords": [
+        "miracle",
+        "images",
+        "load",
+        "show",
+        "appearance",
+        "animation",
+        "effect",
+        "await",
+        "trigger",
+        "spinner"
+    ]
+}
+
