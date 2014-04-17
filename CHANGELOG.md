@@ -1,14 +1,19 @@
 # Release history
 
-## 1.0.0
-Initial release
+## 1.0.3
 
-## 1.0.1
-### Functionality added
-- ```data-m-await-trigger``` 
+__No new functionality added or API changes in this version__
+
 ### Changed
 _Internals:_
-- Events system started to rely on ```$.Deferred()``` instead of  ```setInterval```.
+- Miracle js dependencies moved to Bower.
+
+### Added
+- Install via [Bower](http://bower.io/)
+
+```
+bower install miracle
+```   
 
 ## 1.0.2
 ### Functionality added
@@ -23,4 +28,14 @@ _Internals:_
 - new css images parsing method ```M.parseImgUrls```
 
 ### Fixed
-Fixed #1 — Plugin doesn't wait when images dependencies are loaded on ```v1.0.1```   
+Fixed #1 — Plugin doesn't wait when images dependencies are loaded on ```v1.0.1```
+
+## 1.0.1
+### Functionality added
+- ```data-m-await-trigger``` 
+### Changed
+_Internals:_
+- Events system started to rely on ```$.Deferred()``` instead of  ```setInterval```.
+
+## 1.0.0
+Initial release

@@ -1,6 +1,12 @@
-# Miracle 1.0.2
+# Miracle 1.0.3
 
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
+
+or install via [Bower](http://bower.io/)
+
+```
+bower install miracle
+```
 
 Miracle plugin gives you control over appearance of elements. Helps you to turn appearance of elements on page load from stuttering chaos to perfect synchronous performance of the symphony.
 
@@ -49,6 +55,12 @@ __API navigation__
 
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
 
+or install via [Bower](http://bower.io/)
+
+```
+bower install miracle
+```
+
 In your ```<html/>``` add this to ```<head/>```:
 ```html
 <head>
@@ -72,7 +84,7 @@ Images dependencies:
 - CSS declarations with ```url("...")``` (shorthands & precise variants): 
    - ```background``` (& ```background-image```; multiple backgrounds are handled too)
    - ```list-style``` (& ```list-style-image```)
-   - ```border-image``` (& ````border-image-source```)
+   - ```border-image``` (& ```border-image-source```)
 
 Without image dependencies miracle shows immediately according to declared properties (effect, custom effect, await, show timeout etc.)
 
