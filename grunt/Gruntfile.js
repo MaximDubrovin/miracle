@@ -117,17 +117,6 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            js_libs: {
-                files: [
-                    {
-                        expand: true,
-                        flatten: false,
-                        cwd: '../sandbox/js/libs/',
-                        src: '**',
-                        dest: '../build/js/libs/'
-                    }
-                ]
-            },
             html: {
                 files: [
                     {
@@ -185,7 +174,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build-plugin',['concat:js','uglify:js']);
 
-    grunt.registerTask('build-webpages',['sass','autoprefixer','csso','copy:html','copy:js_libs','imagemin']);
+    grunt.registerTask('build-webpages',['sass','autoprefixer','csso','copy:html','imagemin']);
 
     grunt.registerTask('build-release',['compress:min']);
 
