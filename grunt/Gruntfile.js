@@ -127,6 +127,17 @@ module.exports = function(grunt) {
                         dest: '../build/'
                     }
                 ]
+            },
+            js_to_root: {
+                files: [
+                    {
+                        expand: true,
+                        flatten: false,
+                        cwd: '../build/js/',
+                        src: ['miracle.js','miracle.min.js'],
+                        dest: '../'
+                    }
+                ]
             }
         },
         compress: {
@@ -172,7 +183,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('run-server',['connect']);
 
-    grunt.registerTask('build-plugin',['concat:js','uglify:js']);
+    grunt.registerTask('build-plugin',['concat:js','uglify:js','copy:js_to_root']);
 
     grunt.registerTask('build-webpages',['sass','autoprefixer','csso','copy:html','imagemin']);
 
