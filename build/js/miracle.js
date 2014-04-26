@@ -1,5 +1,5 @@
 /*
- Miracle 1.0.3, 17.04.14 14:38
+ Miracle 1.0.3, 26.04.14 22:01
  © 2014, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md 
 */
 
@@ -552,7 +552,7 @@ M.buildRule = {
             } else if (effect == 'ease-x') {
                 !scaleInit ? scaleInit = '0.9' : {};
                 declarsPrefixed = '-webkit-transform: scaleX(' + scaleInit +');';
-                declars = declarsPrefixed + opacity + ' transform: scaleY(' + scaleInit +');';
+                declars = declarsPrefixed + opacity + ' transform: scaleX(' + scaleInit +');';
             } else if (effect == 'from-space') {
                 !scaleInit ? scaleInit = '3' : {};
                 !translate ? translate = '-200px, -200px' : {};
@@ -628,7 +628,7 @@ M.buildRule = {
             } else if (effect == 'ease-x') {
                 !orig ? transfOrig = '-webkit-transform-origin: center; transform-origin: center;': {};
                 declarsPrefixed = ' -webkit-transform: scaleX(1);';
-                declars = declarsPrefixed + transPref + trans + transfOrig +  ' opacity: 1; transform: scaleY(1); transform-origin: 50% 0;'
+                declars = declarsPrefixed + transPref + trans + transfOrig +  ' opacity: 1; transform: scaleX(1); transform-origin: 50% 0;'
             } else if (effect == 'from-hell') {
                 !orig ? transfOrig = '-webkit-transform-origin: center; transform-origin: center;': {};
                 declarsPrefixed = ' -webkit-transform: scale(1) translate(0);';
