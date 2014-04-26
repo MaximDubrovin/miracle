@@ -1,5 +1,12 @@
 # Release history
 
+## 1.0.4
+
+__No new functionality added or API changes in this version__
+
+### Fixed
+Fixed issue [#2](https://github.com/MaximDubrovin/miracle/issues/2) — wrong «ease-x» prefixed declarations
+
 ## 1.0.3
 
 __No new functionality added or API changes in this version__
