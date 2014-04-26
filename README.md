@@ -10,7 +10,7 @@ bower install miracle
 
 Miracle plugin gives you control over appearance of elements. Helps you to turn appearance of elements on page load from stuttering chaos to perfect synchronous performance of the symphony.
 
-[Basic example](http://maximdubrovin.github.io/miracle/build/e/basic.html)
+<a href="http://maximdubrovin.github.io/miracle/build/e/basic.html" target="_blank">Basic example</a>
 
 Plugin can wait & show element with effect after:
 - element's images dependencies loaded 
@@ -128,6 +128,8 @@ Predefined effects names:
 - __from-hell__:
 Miracle comings from hell like a devil. Transition from ```scale(0)```, ```translate(-200px)``` to ```scale(1)``` and original position.
 
+- __scale__: Transition from ```scale(0.3)``` to ```scaleY(1)```.
+
 - __slide__: Miracle comings from another position. Transition from``` translate(0px,-200px)``` to original position. This effect doesn't make sense without setting [data-m-translate](https://github.com/MaximDubrovin/Miracle#data-m-translate--any-valid-translate-value)
 
 _Example:_
@@ -189,7 +191,7 @@ Default: «0»
 
 - __scale__: Initial ```scale()``` value
 
-Default: «0.5»
+Default: «0.3»
 
 _Example:_
 ```html
@@ -413,6 +415,8 @@ Two miracles can await each other «loaded» signal and show synchronously.
 ```
 
 #### data-m-await-show = «m-id» or "prev"
+
+_This property works only with predefined effects._
 
 Miracle waits when miracle with specified m-id or just previous miracle will be shown then shows himself
 
