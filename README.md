@@ -2,15 +2,19 @@
 
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
 
-or install via [Bower](http://bower.io/)
+or install via <a href="http://bower.io/" target="_blank">Bower</a>
 
 ```
 bower install miracle
 ```
 
+<br>
+
 Miracle plugin gives you control over appearance of elements. Helps you to turn appearance of elements on page load from stuttering chaos to perfect synchronous performance of the symphony.
 
 <a href="http://maximdubrovin.github.io/miracle/build/e/basic.html" target="_blank">Basic example</a>
+
+Long read about problem that Miracle targeted to solve: <a href="https://medium.com/p/ce81143e7a38" target="_blank">«Elements animation on initial page render: CSS animations and load event to the rescue from messy page render»</a> 
 
 Plugin can wait & show element with effect after:
 - element's images dependencies loaded 
