@@ -55,7 +55,7 @@ __API navigation__
   - [data-m-await-trigger](#data-m-await-trigger--true)
 - [data-m-inherit](#data-m-inherit--m-id)
 
-# How it works?
+# How to use?
 
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
 
