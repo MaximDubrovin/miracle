@@ -1,5 +1,5 @@
 /*
- Miracle 1.0.3, 26.04.14 22:01
+ Miracle 1.0.5, 07.05.14 00:48
  © 2014, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md 
 */
 
@@ -110,6 +110,8 @@ M.init = function() {
             M.showMiracle.prepare(miracle);
 
             allImgs = M.findImgs.init(miracle);
+
+            miracle.imgsLength = allImgs.length;
 
             if (allImgs.length) {
                 M.bindImgs(miracle, allImgs);
@@ -271,17 +273,17 @@ M.bindEvents = function(miracle) {
 
 M.bindImgs = function(miracle, allImgs) {
 
-    allImgs.on('load', function() {
-        /* On load each miracle children image dependency
-         (img elem src or css bg-img) increment overall loaded images counter of miracle */
+    /* On load each miracle children image dependency
+     (img elem src or css bg-img) increment overall loaded images counter of miracle */
+    allImgs.on('load', function(e) {
+        M.imgsLoadedCounter.increment(miracle);
+    });
 
-        miracle.imgsLoadedCounter++;
-
-        if (miracle.imgsLoadedCounter >= allImgs.length) {
-            /* Wait until all images dependencies are loaded */
-
-            miracle.$.trigger('m-loaded');
-        }
+    /* Detect when browser failed to load image source. */
+    allImgs.on('error', function(e) {
+        /* Simulate load event to this image dependency to continue animations. */
+        M.imgsLoadedCounter.increment(miracle);
+        console.log('MIRACLE ERROR: Image dependency was not loaded. To not interrupt overall miracles effects order on page, Miracle will simulate load event for this image. Image url: ' + e.target.src + '. Miracle: ', miracle);
     });
 }
 
@@ -809,3 +811,16 @@ M.parseImgUrls = function($element) {
 $(function() {
     M.init()
 });
+
+
+M.imgsLoadedCounter = {
+
+    increment: function(miracle) {
+        miracle.imgsLoadedCounter++;
+
+        /* Wait until all images dependencies are loaded */
+        if (miracle.imgsLoadedCounter >= miracle.imgsLength) {
+            miracle.$.trigger('m-loaded');
+        }
+    }
+}

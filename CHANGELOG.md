@@ -1,5 +1,11 @@
 # Release history
 
+# 1.0.5
+
+### Added
+
+- [If one of miracle's image dependencies was not loaded](https://github.com/MaximDubrovin/miracle/blob/master/README.md#if-one-of-miracles-image-dependencies-was-not-loaded) behavior
+
 ## 1.0.4
 
 __No new functionality added or API changes in this version__

@@ -1,5 +1,5 @@
 /*
- Miracle 1.0.3, 17.04.14 14:38
+ Miracle 1.0.5, 07.05.14 00:48
  © 2014, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md 
 */
 
@@ -110,6 +110,8 @@ M.init = function() {
             M.showMiracle.prepare(miracle);
 
             allImgs = M.findImgs.init(miracle);
+
+            miracle.imgsLength = allImgs.length;
 
             if (allImgs.length) {
                 M.bindImgs(miracle, allImgs);
@@ -271,17 +273,17 @@ M.bindEvents = function(miracle) {
 
 M.bindImgs = function(miracle, allImgs) {
 
-    allImgs.on('load', function() {
-        /* On load each miracle children image dependency
-         (img elem src or css bg-img) increment overall loaded images counter of miracle */
+    /* On load each miracle children image dependency
+     (img elem src or css bg-img) increment overall loaded images counter of miracle */
+    allImgs.on('load', function(e) {
+        M.imgsLoadedCounter.increment(miracle);
+    });
 
-        miracle.imgsLoadedCounter++;
-
-        if (miracle.imgsLoadedCounter >= allImgs.length) {
-            /* Wait until all images dependencies are loaded */
-
-            miracle.$.trigger('m-loaded');
-        }
+    /* Detect when browser failed to load image source. */
+    allImgs.on('error', function(e) {
+        /* Simulate load event to this image dependency to continue animations. */
+        M.imgsLoadedCounter.increment(miracle);
+        console.log('MIRACLE ERROR: Image dependency was not loaded. To not interrupt overall miracles effects order on page, Miracle will simulate load event for this image. Image url: ' + e.target.src + '. Miracle: ', miracle);
     });
 }
 
@@ -552,7 +554,7 @@ M.buildRule = {
             } else if (effect == 'ease-x') {
                 !scaleInit ? scaleInit = '0.9' : {};
                 declarsPrefixed = '-webkit-transform: scaleX(' + scaleInit +');';
-                declars = declarsPrefixed + opacity + ' transform: scaleY(' + scaleInit +');';
+                declars = declarsPrefixed + opacity + ' transform: scaleX(' + scaleInit +');';
             } else if (effect == 'from-space') {
                 !scaleInit ? scaleInit = '3' : {};
                 !translate ? translate = '-200px, -200px' : {};
@@ -628,7 +630,7 @@ M.buildRule = {
             } else if (effect == 'ease-x') {
                 !orig ? transfOrig = '-webkit-transform-origin: center; transform-origin: center;': {};
                 declarsPrefixed = ' -webkit-transform: scaleX(1);';
-                declars = declarsPrefixed + transPref + trans + transfOrig +  ' opacity: 1; transform: scaleY(1); transform-origin: 50% 0;'
+                declars = declarsPrefixed + transPref + trans + transfOrig +  ' opacity: 1; transform: scaleX(1); transform-origin: 50% 0;'
             } else if (effect == 'from-hell') {
                 !orig ? transfOrig = '-webkit-transform-origin: center; transform-origin: center;': {};
                 declarsPrefixed = ' -webkit-transform: scale(1) translate(0);';
@@ -809,3 +811,16 @@ M.parseImgUrls = function($element) {
 $(function() {
     M.init()
 });
+
+
+M.imgsLoadedCounter = {
+
+    increment: function(miracle) {
+        miracle.imgsLoadedCounter++;
+
+        /* Wait until all images dependencies are loaded */
+        if (miracle.imgsLoadedCounter >= miracle.imgsLength) {
+            miracle.$.trigger('m-loaded');
+        }
+    }
+}
