@@ -1,16 +1,16 @@
 
 M.bindImgs = function(miracle, allImgs) {
 
-    allImgs.on('load', function() {
-        /* On load each miracle children image dependency
-         (img elem src or css bg-img) increment overall loaded images counter of miracle */
+    /* On load each miracle children image dependency
+     (img elem src or css bg-img) increment overall loaded images counter of miracle */
+    allImgs.on('load', function(e) {
+        M.imgsLoadedCounter.increment(miracle);
+    });
 
-        miracle.imgsLoadedCounter++;
-
-        if (miracle.imgsLoadedCounter >= allImgs.length) {
-            /* Wait until all images dependencies are loaded */
-
-            miracle.$.trigger('m-loaded');
-        }
+    /* Detect when browser failed to load image source. */
+    allImgs.on('error', function(e) {
+        /* Simulate load event to this image dependency to continue animations. */
+        M.imgsLoadedCounter.increment(miracle);
+        console.log('MIRACLE ERROR: Image dependency was not loaded. Miracle simulated load event for this image and showed it to not interrupt overall animations on page and UX. Image url: ' + e.target.src);
     });
 }
