@@ -484,6 +484,9 @@ data-m-duration="111" data-m-await="typical-miracle">
 
 Second miracle inherits all «typical-miracle» properties, rewrites ```data-m-duration``` property and extends his properties with ```data-m-await="typical-miracle"```.
 
+# If one of miracle's image dependencies was not loaded
+To not interrupt overall miracles effects order on page, Miracle'll simulate load event for this image, continue to await other image dependencies and finally show miracle. So miracle element will be shown but with gap on not loaded image's place and will look according to your design without this image. Also plugin throws error in console to notify about this case.
+
 # Browser support
 Supported: Modern webkit browsers, Firefox, IE 11. 
 
