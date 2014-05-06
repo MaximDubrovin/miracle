@@ -11,6 +11,6 @@ M.bindImgs = function(miracle, allImgs) {
     allImgs.on('error', function(e) {
         /* Simulate load event to this image dependency to continue animations. */
         M.imgsLoadedCounter.increment(miracle);
-        console.log('MIRACLE ERROR: Image dependency was not loaded. Miracle simulated load event for this image and showed it to not interrupt overall animations on page and UX. Image url: ' + e.target.src);
+        console.log('MIRACLE ERROR: Image dependency was not loaded. To not interrupt overall miracles effects order on page, Miracle will simulate load event for this image. Image url: ' + e.target.src + '. Miracle: ', miracle);
     });
 }
