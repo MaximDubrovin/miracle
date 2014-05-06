@@ -254,9 +254,11 @@ h2 {
         height: 240px;
         background: center no-repeat;
         background-size: 100%;
+        &.b-catalog__item-img_error {
+          background-image: url('../img/fail-image.jpg') !important;
+        }
         &#b-catalog__item-img_snickers {
           background-image: url('../img/snickers.jpg');
-//          ,url('https://s3-eu-west-1.amazonaws.com/nas-gallery/photos/uktus.JPG');
         }
         &#b-catalog__item-img_bounty {
           background-image: url('../img/bounty.jpg');

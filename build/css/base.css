@@ -1,5 +1,5 @@
 /*
- Miracle 1.0.2, 15.04.14 04:09
+ Miracle 1.0.4, 06.05.14 23:51
  © 2014, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md 
 */
 
@@ -256,6 +256,8 @@ h2 {
       height: 240px;
       background: center no-repeat;
       background-size: 100%; }
+      #b-catalog .b-catalog__section .b-catalog__item .b-catalog__item-img.b-catalog__item-img_error {
+        background-image: url("../img/fail-image.jpg") !important; }
       #b-catalog .b-catalog__section .b-catalog__item .b-catalog__item-img#b-catalog__item-img_snickers {
         background-image: url("../img/snickers.jpg"); }
       #b-catalog .b-catalog__section .b-catalog__item .b-catalog__item-img#b-catalog__item-img_bounty {
