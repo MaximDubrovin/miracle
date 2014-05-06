@@ -487,6 +487,8 @@ Second miracle inherits all «typical-miracle» properties, rewrites ```data-m-d
 ## If one of miracle's image dependencies was not loaded
 To not interrupt overall miracles effects order on page, Miracle'll simulate load event for this image, continue to await other image dependencies and finally show miracle. So miracle element will be shown but with gap on not loaded image's place and will look according to your design without this image. Also plugin throws error in console to notify about this case.
 
+<a href="http://maximdubrovin.github.io/miracle/build/e/img_error.html" target="_blank">«Image dependency was not loaded» example</a>
+
 ## Performance
 Plugin uses <a href="http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/" target="_blank">hardware accelerated</a>
 CSS declarations that should please you with silky smooth 60fps animations.
