@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         meta: {
-            banner: '/*\n <%= pkg.name %> <%= pkg.version %>, <%= grunt.template.today("dd.mm.yy HH:MM") %>\n © <%= grunt.template.today("yyyy") %>, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md \n*/\n',
+            banner: '/*\n <%= pkg.name %> <%= pkg.version %>\n © <%= grunt.template.today("yyyy") %>, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md \n*/\n',
             html: [
                 '../sandbox/test.html',
                 '../sandbox/e/**/*.html'
