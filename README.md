@@ -2,15 +2,19 @@
 
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
 
-or install via [Bower](http://bower.io/)
+or install via <a href="http://bower.io/" target="_blank">Bower</a>
 
 ```
 bower install miracle
 ```
 
+<br>
+
 Miracle plugin gives you control over appearance of elements. Helps you to turn appearance of elements on page load from stuttering chaos to perfect synchronous performance of the symphony.
 
 <a href="http://maximdubrovin.github.io/miracle/build/e/basic.html" target="_blank">Basic example</a>
+
+Long read about problem that Miracle targeted to solve: <a href="https://medium.com/p/ce81143e7a38" target="_blank">«Elements animation on initial page render: CSS animations and load event to the rescue from messy page render»</a> 
 
 Plugin can wait & show element with effect after:
 - element's images dependencies loaded 
@@ -51,7 +55,7 @@ __API navigation__
   - [data-m-await-trigger](#data-m-await-trigger--true)
 - [data-m-inherit](#data-m-inherit--m-id)
 
-# How it works?
+## How to use?
 
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
 
@@ -97,7 +101,7 @@ data-m-duration="444" data-m-await-show="prev"
 data-m-timeout="111" data-m-spinner="true">...<div>
 ```
 
-# API
+## API
 
 ## Plugin defaults
 
@@ -480,10 +484,17 @@ data-m-duration="111" data-m-await="typical-miracle">
 
 Second miracle inherits all «typical-miracle» properties, rewrites ```data-m-duration``` property and extends his properties with ```data-m-await="typical-miracle"```.
 
-# Browser support
+## If one of miracle's image dependencies was not loaded
+To not interrupt overall miracles effects order on page, Miracle'll simulate load event for this image, continue to await other image dependencies and finally show miracle. So miracle element will be shown but with gap on not loaded image's place and will look according to your design without this image. Also plugin throws error in console to notify about this case.
+
+## Performance
+Plugin uses <a href="http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/" target="_blank">hardware accelerated</a>
+CSS declarations that should please you with silky smooth 60fps animations.
+ 
+## Browser support
 Supported: Modern webkit browsers, Firefox, IE 11. 
 
 In other browsers page loads as usual, without any special appearance.
 
-# Warning:
+## Warning:
 - Plugin occupies ```M``` global variable.
