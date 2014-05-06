@@ -29,7 +29,8 @@ module.exports = function(grunt) {
                 '../sandbox/js/getUniqueName.js',
                 '../sandbox/js/markAsShown.js',
                 '../sandbox/js/parseImgUrls.js',
-                '../sandbox/js/domready.js'
+                '../sandbox/js/domready.js',
+                '../sandbox/js/imgsLoadedCounter.js'
             ]
         },
         watch: {
