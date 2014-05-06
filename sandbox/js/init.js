@@ -61,6 +61,8 @@ M.init = function() {
 
             allImgs = M.findImgs.init(miracle);
 
+            miracle.imgsLength = allImgs.length;
+
             if (allImgs.length) {
                 M.bindImgs(miracle, allImgs);
             } else {
