@@ -50,7 +50,9 @@ M.buildRule = {
             var declars, declarsPrefixed, opacity, translate,
                 scaleInit = miracle.scaleInit,
                 effect = miracle.effect,
-                customEffect = miracle.style.init;
+                customEffectInit = miracle.style.init,
+                classRE = /^./,
+                classSanitized;
 
 
             /* check «data-m-opaque» */
@@ -63,7 +65,6 @@ M.buildRule = {
             if (miracle.translate) {
                 translate = miracle.translate;
             }
-
 
             if (effect == 'fade-in') {
                 declars = opacity;
@@ -93,8 +94,16 @@ M.buildRule = {
                 !translate ? translate = '0px, -200px' : {};
                 declarsPrefixed = '-webkit-transform: translate(' + translate +');';
                 declars = declarsPrefixed + opacity + ' transform: translate(' + translate +');';
-            } else if (customEffect) {
-                declars = customEffect;
+            } else if (customEffectInit) {
+                /* Check for «class» custom effect approach. */
+                if (classRE.test(customEffectInit)) {
+                    classSanitized = customEffectInit.replace('.', '');
+                    miracle.$.addClass(classSanitized);
+                } else {
+                    /* Else interpret customEffect value
+                    declarations as inline style. */
+                    declars = customEffectInit;
+                }
             } else {
                 declars = opacity;
             }
@@ -107,10 +116,13 @@ M.buildRule = {
             var declars = '',
                 declarsPrefixed = '',
                 effect = miracle.effect,
-                customEffect = miracle.style.final,
+                customEffectInit = miracle.style.init,
+                customEffectFinal = miracle.style.final,
                 easing, duration,
                 orig = miracle.origin, transfOrig, transfOrigPref,
-                trans, transPref, transProps, transDur, transEasing, transPropsPref, transDurPref, transEasingPref;
+                trans, transPref, transProps, transDur, transEasing, transPropsPref, transDurPref, transEasingPref,
+                classRE = /^./,
+                classInitSanitized, classFinalSanitized;
 
             if (miracle.easing) {
                 easing = miracle.easing;
@@ -167,9 +179,30 @@ M.buildRule = {
                 !orig ? transfOrig = '-webkit-transform-origin: center; transform-origin: center;': {};
                 declarsPrefixed = '-webkit-transform: translate(0);';
                 declars = declarsPrefixed + transPref + trans + transfOrig + ' opacity: 1; transform: translate(0);';
-            } else if (customEffect) {
-                declars = customEffect;
-            }  else {
+            } else if (customEffectInit || customEffectFinal) {
+
+                /* Check for «class» custom effect approach
+                for init state to apply logic later. */
+                if (customEffectInit && classRE.test(customEffectInit)) {
+                    classInitSanitized = customEffectInit.replace('.','');
+                }
+
+                if (customEffectFinal) {
+                    if (classRE.test(customEffectFinal)) {
+                        /* If final custom effect state is class
+                        then add this class to miracle. */
+                        classFinalSanitized = customEffectFinal.replace('.','');
+                        miracle.$.addClass(classFinalSanitized);
+                    } else {
+                        /* Else interpret it as inline style declarations. */
+                        declars = customEffectFinal;
+                    }
+                } else if (classInitSanitized) {
+                    /* If miracle hasn't any final custom effect,
+                    but has init custom effect class, them remove that init class. */
+                    miracle.$.removeClass(classInitSanitized);
+                }
+            }   else {
                 declars = 'opacity: 1;' + transPref + trans;
             }
 
