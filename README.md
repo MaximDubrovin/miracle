@@ -283,8 +283,10 @@ _Example:_
 
 ```css
 .initialState {
+	
 	opacity: 0;
 	transform: scale(0) translateX(-200px) translateY(-200px);
+	
 }
 ```
 
@@ -299,11 +301,13 @@ _Example:_
 
 ```css
 .finalState {
+
 	opacity: 1;
 	transform: scale(1) translateX(0) translateY(0);
 	transition-property: opacity, transform;
 	transition-duration: 600ms;
 	transition-timing-function: ease-in-out;
+	
 }
 ```
 
