@@ -40,9 +40,12 @@ __API navigation__
   - [data-m-scale-init](#data-m-scale-init--value-from-0-to-infinity)
   - [data-m-origin](#data-m-origin--any-valid-transform-origin-value)
   - [data-m-translate](#data-m-translate--any-valid-translate-value)
-- Custom effects
-  - [data-m-style-init](#data-m-style-init--css-declarations)
-  - [data-m-style-final](#data-m-style-final--css-declarations)
+- Custom effects: CSS classes approach
+  - [data-m-style-init](#data-m-style-init--classname)
+  - [data-m-style-final](#data-m-style-final--classname)
+- Custom effects: Inline CSS approach
+  - [data-m-style-init](#data-m-style-init--inline-css-declarations)
+  - [data-m-style-final](#data-m-style-final--inline-css-declarations)
 - [data-m-opaque](#data-m-opaque--true)
 - [data-m-timeout](#data-m-timeout--time-in-ms)
 - Spinner 
@@ -105,7 +108,7 @@ data-m-timeout="111" data-m-spinner="true">...<div>
 
 ## Plugin defaults
 
-All miracles that uses __built-in__ show effects initially hidden using ```opacity: 0```. If you declare [custom effect](#custom-effects) then you need to take care about both initial and final states styles yourself.
+Some miracles that uses __built-in__ show effects initially hidden using ```opacity: 0```. If you declare [custom effect](#custom-effects) then you need to take care about both initial and final states styles yourself.
 
 Miracles have __implicitly declared properties__ that plugin needs to create basic show effect:
 - ```data-m-effect="fade-in"```
@@ -267,7 +270,7 @@ You can set your own show effect with CSS classes or inline CSS declarations.
 ### CSS classes approach
 You can use CSS classes from your own stylesheets to create custom show effect.
  
-_Note dot before class name_
+_Note dot before class name._
 
 Declare initial state style of miracle:
 
@@ -281,8 +284,7 @@ _Example:_
 ```css
 .initialState {
 	opacity: 0;
-	transform: scale(0) translateX(-200px)
-translateY(-200px);
+	transform: scale(0) translateX(-200px) translateY(-200px);
 }
 ```
 
@@ -319,29 +321,17 @@ Declare initial style of miracle:
 _Example:_
 ```html
 <div class="miracle" 
-data-m-style-init=
-"
-	opacity: 0;
-	transform: scale(0) translateX(-200px)
-translateY(-200px);
-">...</div>
+data-m-style-init="opacity: 0; transform: scale(0) translateX(-200px) translateY(-200px);">...</div>
 ```
 
 Declare final style of miracle. How user should see miracle at the end of effect:
 
-#### data-m-style-final = «css declarations»
+#### data-m-style-final = «inline CSS declarations»
 
 _Example:_
 ```html
 <div class="miracle" 
-data-m-style-final=
-"
-	opacity: 1;
-	transform: scale(1) translateX(0) translateY(0);
-	transition-property: opacity, transform;
-	transition-duration: 600ms;
-	transition-timing-function: ease-in-out;
-">...</div>
+data-m-style-final="opacity: 1;	transform: scale(1) translateX(0) translateY(0); transition-property: opacity, transform;transition-duration: 600ms; transition-timing-function: ease-in-out;">...</div>
 ```
 
 _Note:_
@@ -350,7 +340,7 @@ _Note:_
 
 ### Make miracle initially opaque
 
-All miracles (elements with class «miracle») initially hidden using ```opacity: 0```. But sometimes you may want to rewrite this default or rewrite inherited property.
+Some miracles that use built-in show effects initially hidden using ```opacity: 0```. But sometimes you may want to rewrite it or rewrite inherited property of miracle.
 
 #### data-m-opaque = "true"
 
