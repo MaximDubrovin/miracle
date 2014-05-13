@@ -3,7 +3,7 @@
 # 1.0.6
 
 ### Added functionality
-- Now you can use CSS classes from your own stylesheets to create custom show effects. Check out Readme about [benefits it gives](#css-classes-approach).
+- Now you can use CSS classes from your own stylesheets to create custom show effects. Check out Readme about [benefits it gives](https://github.com/MaximDubrovin/miracle/#css-classes-approach).
 
 ### Changed
 Plugin defaults changed to minimize your confuse about hidden default styles of miracle.
@@ -14,7 +14,7 @@ __All__ miracles (elements with class miracle) were initially hidden using ```op
 
 _From 1.0.6:_
  
-Only some miracles __that use built-in show effects__ initially hidden using ```opacity: 0```. If you declare [custom effect](#custom-effects) then you need to take care about both initial and final states styles completely yourself.  
+Only some miracles __that use built-in show effects__ initially hidden using ```opacity: 0```. If you declare [custom effect](https://github.com/MaximDubrovin/miracle/#custom-effects) then you need to take care about both initial and final states styles completely yourself.  
 
 # 1.0.5
 
