@@ -116,7 +116,6 @@ M.buildRule = {
             var declars = '',
                 declarsPrefixed = '',
                 effect = miracle.effect,
-                customEffectInit = miracle.style.init,
                 customEffectFinal = miracle.style.final,
                 easing, duration,
                 orig = miracle.origin, transfOrig, transfOrigPref,
@@ -179,30 +178,17 @@ M.buildRule = {
                 !orig ? transfOrig = '-webkit-transform-origin: center; transform-origin: center;': {};
                 declarsPrefixed = '-webkit-transform: translate(0);';
                 declars = declarsPrefixed + transPref + trans + transfOrig + ' opacity: 1; transform: translate(0);';
-            } else if (customEffectInit || customEffectFinal) {
-
-                /* Check for «class» custom effect approach
-                for init state to apply logic later. */
-                if (customEffectInit && classRE.test(customEffectInit)) {
-                    classInitSanitized = customEffectInit.replace('.','');
+            } else if (customEffectFinal) {
+                if (classRE.test(customEffectFinal)) {
+                    /* If final custom effect state is class
+                     then add this class to miracle. */
+                    classFinalSanitized = customEffectFinal.replace('.','');
+                    miracle.$.addClass(classFinalSanitized);
+                } else {
+                    /* Else interpret it as inline style declarations. */
+                    declars = customEffectFinal;
                 }
-
-                if (customEffectFinal) {
-                    if (classRE.test(customEffectFinal)) {
-                        /* If final custom effect state is class
-                        then add this class to miracle. */
-                        classFinalSanitized = customEffectFinal.replace('.','');
-                        miracle.$.addClass(classFinalSanitized);
-                    } else {
-                        /* Else interpret it as inline style declarations. */
-                        declars = customEffectFinal;
-                    }
-                } else if (classInitSanitized) {
-                    /* If miracle hasn't any final custom effect,
-                    but has init custom effect class, them remove that init class. */
-                    miracle.$.removeClass(classInitSanitized);
-                }
-            }   else {
+            } else {
                 declars = 'opacity: 1;' + transPref + trans;
             }
 
