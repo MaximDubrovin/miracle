@@ -1,4 +1,4 @@
-# Miracle 1.0.5
+# Miracle 1.0.6
 
 [Download latest release](https://github.com/MaximDubrovin/miracle/releases)
 
@@ -23,7 +23,7 @@ Plugin can wait & show element with effect after:
 - trigger from your code 
 
 Declare with ease right in element attributes: 
-- predefined customizable show effects
+- built-in customizable show effects
 - fully customizable show effects
 - complex show order between many elements
 - spinner before show 
@@ -33,8 +33,8 @@ Declare with ease right in element attributes:
 _Plugin needs jQuery 1.10.2 or later. Earlier versions are not tested with Miracle._
 
 __API navigation__
-- Predefined effects
-  - [data-m-effect](#data-m-effect--predefined-effect-name)
+- Built-in effects
+  - [data-m-effect](#data-m-effect--built-in-effect-name)
   - [data-m-duration](#data-m-duration--time-in-ms)
   - [data-m-easing](#data-m-easing--any-valid-transition-timing-function-value)
   - [data-m-scale-init](#data-m-scale-init--value-from-0-to-infinity)
@@ -105,22 +105,22 @@ data-m-timeout="111" data-m-spinner="true">...<div>
 
 ## Plugin defaults
 
-All miracles (elements with class «miracle») initially hidden using ```opacity: 0```.
+All miracles that uses __built-in__ show effects initially hidden using ```opacity: 0```. If you declare [custom effect](#custom-effects) then you need to take care about both initial and final states styles yourself.
 
-Miracles have __implicitly declared properties__ which plugin needs to create basic show effect:
+Miracles have __implicitly declared properties__ that plugin needs to create basic show effect:
 - ```data-m-effect="fade-in"```
 - ```data-m-duration="500"```
 - ```data-m-easing="ease-in-out"```
 
-## Predefined show effects
+## Built-in show effects
 
-Choose one that you like. Predefined effects designed to work without any customization but if you want there all what you need — 
-[Predefined effects settings](https://github.com/MaximDubrovin/Miracle#predefined-effects-settings).
+Choose one that you like. Built-in effects designed to work without any customization but if you want there all what you need — 
+[Built-in effects settings](#built-in-effects-settings).
 
-#### data-m-effect = «predefined effect name»
+#### data-m-effect = «built-in effect name»
 Default: «fade-in»
 
-Predefined effects names:
+Built-in effects names:
 - __fade-in__: Transition from ```opacity: 0``` to ```opacity: 1```.
 
 - __ease-y__: Transition from ```scaleY(0.9)``` to ```scaleY(1)``` gives elegant presentation effect.
@@ -141,8 +141,8 @@ _Example:_
 <div class="miracle" data-m-effect="from-space">...</div>
 ```
 
-## Predefined effects settings
-_These properties work only with predefined effects._
+## Built-in effects settings
+_These properties work only with built-in effects._
 ### Effect duration
 
 How long effect should lasts.
@@ -158,7 +158,7 @@ data-m-duration="333">...</div>
 
 ### Effect easing
 
-You can set your own transition easing for predefined effect.
+You can set your own transition easing for built-in effect.
  
 #### data-m-easing = «any valid ```transition-timing-function``` value»
 Default: «ease-in-out»
@@ -173,7 +173,7 @@ data-m-easing="linear">...</div>
 
 ### Initial scale
 
-You can set initial scale of element for predefined effect.
+You can set initial scale of element for built-in effect.
 
 #### data-m-scale-init = «value from 0 to infinity»
 Affected effects:
@@ -204,7 +204,7 @@ _Example:_
 
 ### Transform origin
 
-You can set the origin for transformations of an element for predefined effect.
+You can set the origin for transformations of an element for built-in effect.
 
 #### data-m-origin = «any valid ```transform-origin``` value»
 Affected effects:
@@ -238,7 +238,7 @@ _Note:_
 If «x-offset» presented, but «y-offset» doesn't then «y» mimics «x».  
 
 ### Translate
-You can set the values for initial state's translate transformations of predefined effect. From that position miracle effect will start.
+You can set the values for initial state's translate transformations of built-in effect. From that position miracle effect will start.
 
 #### data-m-translate = «any valid ```translate()``` value»
 
@@ -262,17 +262,69 @@ _Example:_
 ```
 
 ## Custom effects
-You can set your own show effect in two steps.
+You can set your own show effect with CSS classes or inline CSS declarations.
 
-Declare initial style of miracle:
+### CSS classes approach
+You can use CSS classes from your own stylesheets to create custom show effect.
+ 
+_Note dot before class name_
 
-#### data-m-style-init = «css declarations»
+Declare initial state style of miracle:
+
+#### data-m-style-init = «.className»
 
 _Example:_
 ```html
-<div class="miracle" data-m-style-init="opacity: 0;
--webkit-transform: scale(0) translateX(-200px)
-translateY(-200px);">...</div>
+<div class="miracle" data-m-style-init=".initialState">...</div>
+```
+
+```css
+.initialState {
+	opacity: 0;
+	transform: scale(0) translateX(-200px)
+translateY(-200px);
+}
+```
+
+Declare final state style of miracle. How user should see miracle at the end of effect:
+
+#### data-m-style-final = «.className»
+
+_Example:_
+```html
+<div class="miracle" data-m-style-final=".finalState">...</div>
+```
+
+```css
+.finalState {
+	opacity: 1;
+	transform: scale(1) translateX(0) translateY(0);
+	transition-property: opacity, transform;
+	transition-duration: 600ms;
+	transition-timing-function: ease-in-out;
+}
+```
+
+It's more powerful and convenient then inline CSS approach. Especially if you are using [Autoprefixer](https://github.com/ai/autoprefixer) that automatically adds prefixes to your CSS declarations.
+
+With classes approach it's easy to create elements that responsive to images dependencies loading by deeply modifying element style from your separately defined css classes.
+
+### Inline CSS approach
+You can create custom effect right in HTML attributes with inline CSS declarations.
+
+Declare initial style of miracle:
+
+#### data-m-style-init = «inline CSS declarations»
+
+_Example:_
+```html
+<div class="miracle" 
+data-m-style-init=
+"
+	opacity: 0;
+	transform: scale(0) translateX(-200px)
+translateY(-200px);
+">...</div>
 ```
 
 Declare final style of miracle. How user should see miracle at the end of effect:
@@ -281,16 +333,20 @@ Declare final style of miracle. How user should see miracle at the end of effect
 
 _Example:_
 ```html
-<div class="miracle" data-m-style-final="opacity: 1;
--webkit-transform: scale(1) translateX(0) translateY(0);
--webkit-transition: opacity 600ms ease-in-out, 
--webkit-transform 600ms ease-in-out;">...</div>
+<div class="miracle" 
+data-m-style-final=
+"
+	opacity: 1;
+	transform: scale(1) translateX(0) translateY(0);
+	transition-property: opacity, transform;
+	transition-duration: 600ms;
+	transition-timing-function: ease-in-out;
+">...</div>
 ```
 
 _Note:_
 - take care about vendor prefixes
-- if ```data-m-effect``` presented then custom effect will be ignored.
-- miracles initially has ```opacity: 0``` (See [«Plugin defaults»](https://github.com/MaximDubrovin/Miracle#plugin-defaults))
+- if built-in ```data-m-effect``` presented then custom effect will be ignored.
 
 ### Make miracle initially opaque
 
@@ -420,7 +476,7 @@ Two miracles can await each other «loaded» signal and show synchronously.
 
 #### data-m-await-show = «m-id» or "prev"
 
-_This property works only with predefined effects._
+_This property works only with built-in effects._
 
 Miracle waits when miracle with specified m-id or just previous miracle will be shown then shows himself
 

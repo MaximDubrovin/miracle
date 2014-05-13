@@ -1,6 +1,5 @@
 /*
- Miracle 1.0.5, 07.05.14 00:48
- © 2014, Maxim Dubrovin,  License — https://github.com/MaximDubrovin/miracle/blob/dev/LICENSE-MIT.md 
+ Miracle 1.0.6, Maxim Dubrovin. MIT license. 
 */
 
 /* Miracle plugin home — object under global variable */
@@ -9,7 +8,7 @@ M = {};
 /* Plugin Settings home */
 M.settings = {
     miracleClass: ".miracle",
-    miraclesDefaultStyle: ".miracle { opacity: 0; }",
+    miraclesDefaultStyle: "",
     spinnerFadeTimeout: 111,
     effectDuration: 500,
     easing: {
@@ -104,6 +103,10 @@ M.init = function() {
             /* Binds should go before any triggers. Binds setups when
             miracle's deferreds should be resolved */
             M.bindEvents(miracle);
+
+            /* Style initial initial state of miracle */
+            M.vars.miracleStyleElem[0].innerHTML += M.buildRule.state.init(miracle);
+
 
             /* Prepare setups what should be done when miracle's
             deferred resolved */
@@ -466,10 +469,6 @@ M.showMiracle = {
         setTimeout(function() {
             M.spinner.hide(miracle);
 
-            /* Timeout 0 or greater before creating initial of miracle state is necessary
-             to apply initial state effect state  */
-            M.vars.miracleStyleElem[0].innerHTML += M.buildRule.state.init(miracle);
-
             setTimeout(function() {
                 M.vars.miracleStyleElem[0].innerHTML +=M.buildRule.state.final(miracle);
                 M.markAsShown(miracle);
@@ -530,7 +529,9 @@ M.buildRule = {
             var declars, declarsPrefixed, opacity, translate,
                 scaleInit = miracle.scaleInit,
                 effect = miracle.effect,
-                customEffect = miracle.style.init;
+                customEffectInit = miracle.style.init,
+                classRE = /^./,
+                classSanitized;
 
 
             /* check «data-m-opaque» */
@@ -543,7 +544,6 @@ M.buildRule = {
             if (miracle.translate) {
                 translate = miracle.translate;
             }
-
 
             if (effect == 'fade-in') {
                 declars = opacity;
@@ -573,8 +573,16 @@ M.buildRule = {
                 !translate ? translate = '0px, -200px' : {};
                 declarsPrefixed = '-webkit-transform: translate(' + translate +');';
                 declars = declarsPrefixed + opacity + ' transform: translate(' + translate +');';
-            } else if (customEffect) {
-                declars = customEffect;
+            } else if (customEffectInit) {
+                /* Check for «class» custom effect approach. */
+                if (classRE.test(customEffectInit)) {
+                    classSanitized = customEffectInit.replace('.', '');
+                    miracle.$.addClass(classSanitized);
+                } else {
+                    /* Else interpret customEffect value
+                    declarations as inline style. */
+                    declars = customEffectInit;
+                }
             } else {
                 declars = opacity;
             }
@@ -587,10 +595,12 @@ M.buildRule = {
             var declars = '',
                 declarsPrefixed = '',
                 effect = miracle.effect,
-                customEffect = miracle.style.final,
+                customEffectFinal = miracle.style.final,
                 easing, duration,
                 orig = miracle.origin, transfOrig, transfOrigPref,
-                trans, transPref, transProps, transDur, transEasing, transPropsPref, transDurPref, transEasingPref;
+                trans, transPref, transProps, transDur, transEasing, transPropsPref, transDurPref, transEasingPref,
+                classRE = /^./,
+                classInitSanitized, classFinalSanitized;
 
             if (miracle.easing) {
                 easing = miracle.easing;
@@ -647,9 +657,17 @@ M.buildRule = {
                 !orig ? transfOrig = '-webkit-transform-origin: center; transform-origin: center;': {};
                 declarsPrefixed = '-webkit-transform: translate(0);';
                 declars = declarsPrefixed + transPref + trans + transfOrig + ' opacity: 1; transform: translate(0);';
-            } else if (customEffect) {
-                declars = customEffect;
-            }  else {
+            } else if (customEffectFinal) {
+                if (classRE.test(customEffectFinal)) {
+                    /* If final custom effect state is class
+                     then add this class to miracle. */
+                    classFinalSanitized = customEffectFinal.replace('.','');
+                    miracle.$.addClass(classFinalSanitized);
+                } else {
+                    /* Else interpret it as inline style declarations. */
+                    declars = customEffectFinal;
+                }
+            } else {
                 declars = 'opacity: 1;' + transPref + trans;
             }
 
