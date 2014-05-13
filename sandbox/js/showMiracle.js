@@ -177,10 +177,6 @@ M.showMiracle = {
         setTimeout(function() {
             M.spinner.hide(miracle);
 
-            /* Timeout 0 or greater before creating initial of miracle state is necessary
-             to apply initial state effect state  */
-            M.vars.miracleStyleElem[0].innerHTML += M.buildRule.state.init(miracle);
-
             setTimeout(function() {
                 M.vars.miracleStyleElem[0].innerHTML +=M.buildRule.state.final(miracle);
                 M.markAsShown(miracle);

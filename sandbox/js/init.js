@@ -55,6 +55,10 @@ M.init = function() {
             miracle's deferreds should be resolved */
             M.bindEvents(miracle);
 
+            /* Style initial initial state of miracle */
+            M.vars.miracleStyleElem[0].innerHTML += M.buildRule.state.init(miracle);
+
+
             /* Prepare setups what should be done when miracle's
             deferred resolved */
             M.showMiracle.prepare(miracle);

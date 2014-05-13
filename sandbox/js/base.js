@@ -5,7 +5,7 @@ M = {};
 /* Plugin Settings home */
 M.settings = {
     miracleClass: ".miracle",
-    miraclesDefaultStyle: ".miracle { opacity: 0; }",
+    miraclesDefaultStyle: "",
     spinnerFadeTimeout: 111,
     effectDuration: 500,
     easing: {
