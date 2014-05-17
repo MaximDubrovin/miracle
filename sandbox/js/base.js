@@ -4,7 +4,7 @@ M = {};
 
 /* Plugin Settings home */
 M.settings = {
-    miracleClass: ".miracle",
+    miracleClass: ".miracle:not([data-m-parsed='true'])",
     miraclesDefaultStyle: "",
     spinnerFadeTimeout: 111,
     effectDuration: 500,

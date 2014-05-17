@@ -72,6 +72,10 @@ M.init = function() {
             } else {
                 miracle.$.trigger('m-loaded');
             }
+
+            /* Mark already parsed miracles to no repeat this when
+            miracles are dynamically added and M.init() triggered manually.  */
+            miracle.$.attr('data-m-parsed', true);
         });
     }
 }
