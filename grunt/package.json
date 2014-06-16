@@ -1,6 +1,6 @@
 {
   "name": "Miracle",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-autoprefixer": "~0.7.2",

@@ -1,5 +1,7 @@
 # Release history
 
+# 1.0.7
+
 # 1.0.6
 
 ### Added functionality

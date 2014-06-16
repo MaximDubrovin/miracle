@@ -2,7 +2,7 @@
 {
     "name": "miracle",
     "description": "Miracle plugin gives you control over appearance of elements. Helps you to turn appearance of elements on page load from stuttering chaos to perfect synchronous performance of the symphony.",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "authors": [
         "Maxim Dubrovin <maxxdubrovin@gmail.com>"
     ],
