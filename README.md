@@ -57,6 +57,7 @@ __API navigation__
   - [data-m-await-show](#data-m-await-show--m-id-or-prev)
   - [data-m-await-trigger](#data-m-await-trigger--true)
 - [data-m-inherit](#data-m-inherit--m-id)
+- [Dynamic elements rendering and Miracle. Manual initialization.](#dynamic-elements-rendering-and-miracle)
 
 ## How to use?
 
@@ -538,6 +539,32 @@ Second miracle inherits all «typical-miracle» properties, rewrites ```data-m-d
 To not interrupt overall miracles effects order on page, Miracle'll simulate load event for this image, continue to await other image dependencies and finally show miracle. So miracle element will be shown but with gap on not loaded image's place and will look according to your design without this image. Also plugin throws error in console to notify about this case.
 
 <a href="http://maximdubrovin.github.io/miracle/build/e/img_error.html" target="_blank">«Image dependency was not loaded» example</a>
+
+##Dynamic elements rendering and Miracle
+By default Miracle initializes as soon as DOM is ready. So plugin can't know about all future miracles you'll render dynamically from your code. Especially it is a problem for templates rendering.
+
+To handle dynamically rendered elements you need to initialize Miracle manually as soon as element appended to the page:
+
+```javascript
+/* Create  element, turn it to miracle and append element to the page. */
+var p = document.createElement("p");
+p.className = 'miracle';
+document.body.appendChild(p);
+
+/* Initialize Miracle plugin. But firstly check it's avaliability. */
+M ? M.init() : {};
+```
+
+Imagine you have a [Meteor](https://www.meteor.com/) template with miracles:
+
+```javascript
+/* Meteor can say when template elements are rendered.  */
+Template.myTemplate.rendered = function ( ) {
+	M ? M.init() : {};
+}
+```
+
+When you trigger Miracle initialization plugin doesn't touch already parsed miracles. It's convenient and efficient.
 
 ## Performance
 Plugin uses <a href="http://www.html5rocks.com/en/tutorials/speed/high-performance-animations/" target="_blank">hardware accelerated</a>
