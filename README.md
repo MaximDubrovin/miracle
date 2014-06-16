@@ -470,7 +470,7 @@ Two miracles can await each other «loaded» signal and show synchronously.
 
 #### data-m-await-show = «m-id» or "prev"
 
-_This property works only with built-in effects._
+_This could work with custom effects only if you manually declared overall custom effect duration via ```data-m-duration```. With built-in effects ```data-m-await-show``` works fine without this tuning._
 
 Miracle waits when miracle with specified m-id or just previous miracle will be shown then shows himself
 
