@@ -1,5 +1,5 @@
 /*
- Miracle 1.0.6, Maxim Dubrovin. MIT license. 
+ Miracle 1.0.7, Maxim Dubrovin. MIT license. 
 */
 
 /* Miracle plugin home — object under global variable */
@@ -7,7 +7,7 @@ M = {};
 
 /* Plugin Settings home */
 M.settings = {
-    miracleClass: ".miracle",
+    miracleClass: ".miracle:not([data-m-parsed='true'])",
     miraclesDefaultStyle: "",
     spinnerFadeTimeout: 111,
     effectDuration: 500,
@@ -121,6 +121,10 @@ M.init = function() {
             } else {
                 miracle.$.trigger('m-loaded');
             }
+
+            /* Mark already parsed miracles to no repeat this when
+            miracles are dynamically added and M.init() triggered manually.  */
+            miracle.$.attr('data-m-parsed', true);
         });
     }
 }
@@ -566,7 +570,7 @@ M.buildRule = {
                 declarsPrefixed = '-webkit-transform: scale(' + scaleInit + ') translate(' + translate +');';
                 declars = declarsPrefixed + opacity + ' transform: scale(' + scaleInit + ') translate(' + translate +');';
             } else if (effect == 'scale') {
-                !scaleInit ? scaleInit = '0.3' : {};
+                !scaleInit ? scaleInit = '0' : {};
                 declarsPrefixed ='-webkit-transform: scale(' + scaleInit + ');';
                 declars = declarsPrefixed + opacity + ' transform: scale(' + scaleInit + ');';
             } else if (effect == 'slide') {
