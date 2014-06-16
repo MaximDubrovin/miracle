@@ -87,7 +87,7 @@ M.buildRule = {
                 declarsPrefixed = '-webkit-transform: scale(' + scaleInit + ') translate(' + translate +');';
                 declars = declarsPrefixed + opacity + ' transform: scale(' + scaleInit + ') translate(' + translate +');';
             } else if (effect == 'scale') {
-                !scaleInit ? scaleInit = '0.3' : {};
+                !scaleInit ? scaleInit = '0' : {};
                 declarsPrefixed ='-webkit-transform: scale(' + scaleInit + ');';
                 declars = declarsPrefixed + opacity + ' transform: scale(' + scaleInit + ');';
             } else if (effect == 'slide') {
