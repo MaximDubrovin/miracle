@@ -135,7 +135,7 @@ Built-in effects names:
 - __from-hell__:
 Miracle comings from hell like a devil. Transition from ```scale(0)```, ```translate(-200px)``` to ```scale(1)``` and original position.
 
-- __scale__: Transition from ```scale(0.3)``` to ```scaleY(1)```.
+- __scale__: Transition from ```scale(0)``` to ```scaleY(1)```.
 
 - __slide__: Miracle comings from another position. Transition from``` translate(0px,-200px)``` to original position. This effect doesn't make sense without setting [data-m-translate](https://github.com/MaximDubrovin/Miracle#data-m-translate--any-valid-translate-value)
 
@@ -198,7 +198,7 @@ Default: «0»
 
 - __scale__: Initial ```scale()``` value
 
-Default: «0.3»
+Default: «0»
 
 _Example:_
 ```html
