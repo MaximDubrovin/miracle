@@ -85,7 +85,9 @@ Assign class «miracle» to element:
 <div class="miracle">...</div>
 ```
 
-On page load plugin waits when all image dependencies of miracle loaded then shows miracle with effect.
+Miracle initializes as soon as DOM is ready. Plugin parses for miracles (elements with class «miracle») and prepares them for special appearance behaviour. Then plugin waits when all image dependencies of miracle will be loaded then shows miracle with effect.
+
+If you want to initialize Miracle manually for dynamically added elements — see [here](##dynamic-elements-rendering-and-miracle)
 
 Images dependencies: 
 - ```<img/> ``` elements 
