@@ -3,8 +3,8 @@
 # 1.0.7
 
 ### Added functionality
-- Now Miracle can [efficiently handle](#dynamic-elements-rendering-and-miracle) dynamically added miracles.
-- One miracle can await when another miracle's custom show effect ended. [How-to trick](#data-m-await-show--m-id-or-prev). Previously only built-in effects were handled.
+- Now Miracle can [efficiently handle](https://github.com/MaximDubrovin/miracle#dynamic-elements-rendering-and-miracle) dynamically added miracles.
+- One miracle can await when another miracle's custom show effect ended. [How-to trick](https://github.com/MaximDubrovin/miracle#data-m-await-show--m-id-or-prev). Previously only built-in effects were handled.
 
 ### Changed
 - Now built-in effect «scale» scales from initial value «0». Was «0.3». Honestly, I don't know why. 
