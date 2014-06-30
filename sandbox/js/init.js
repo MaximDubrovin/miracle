@@ -27,6 +27,7 @@ M.init = function() {
             M.vars.dfd.triggered[miracle.name] = $.Deferred();
             miracle.imgsLoadedCounter = 0;
             miracle.spinner = {};
+            miracle.loadError = false;
 
             /* Get props declared by developer */
             miracle.inherit = miracle.$.data('m-inherit');
@@ -46,6 +47,7 @@ M.init = function() {
             miracle.awaitLoad = miracle.props.mAwaitLoad;
             miracle.awaitShow = miracle.props.mAwaitShow;
             miracle.timeout = miracle.props.mTimeout;
+            miracle.errorStyle = miracle.props.mErrorStyle;
             miracle.spinner.use = miracle.props.mSpinner;
             miracle.spinner.style = miracle.props.mSpinnerStyle;
 

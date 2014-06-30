@@ -121,7 +121,8 @@ M.buildRule = {
                 orig = miracle.origin, transfOrig, transfOrigPref,
                 trans, transPref, transProps, transDur, transEasing, transPropsPref, transDurPref, transEasingPref,
                 classRE = /^./,
-                classInitSanitized, classFinalSanitized;
+                classInitSanitized, classFinalSanitized,
+                errorStyle = miracle.errorStyle;
 
             if (miracle.easing) {
                 easing = miracle.easing;
@@ -152,7 +153,9 @@ M.buildRule = {
             transEasing = 'transition-timing-function: ' + easing + ';';
             trans = transProps + transDur + transEasing;
 
-            if (effect == 'fade-in') {
+            if (miracle.loadError &&  errorStyle && classRE.test(errorStyle)) {
+                miracle.$.addClass(errorStyle.replace('.',''));
+            } else if (effect == 'fade-in') {
                 declars = 'opacity: 1;' + transPref + trans;
             } else if (effect == 'ease-y') {
                 !orig ? transfOrig = '-webkit-transform-origin: center; transform-origin: center;': {};
