@@ -258,7 +258,7 @@ h2 {
           background-image: url('../img/fail-image.jpg') !important;
         }
         &#b-catalog__item-img_snickers {
-          background-image: url('../img/snickers.jpg');
+          background-image: url('../img/snickerszzzz.jpg');
         }
         &#b-catalog__item-img_bounty {
           background-image: url('../img/bounty.jpg');
@@ -410,7 +410,11 @@ h2 {
 
 
 
-
+ .miracleError {
+	 opacity: 1 !important;
+	 transform: scale(0.5);
+	 transition: all 500ms ease-in-out;
+ }
 
 
 
