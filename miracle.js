@@ -1,5 +1,5 @@
 /*
- Miracle 1.0.7, Maxim Dubrovin. MIT license. 
+ Miracle 1.1.0, Maxim Dubrovin. MIT license. 
 */
 
 /* Miracle plugin home — object under global variable */
@@ -76,6 +76,7 @@ M.init = function() {
             M.vars.dfd.triggered[miracle.name] = $.Deferred();
             miracle.imgsLoadedCounter = 0;
             miracle.spinner = {};
+            miracle.loadError = false;
 
             /* Get props declared by developer */
             miracle.inherit = miracle.$.data('m-inherit');
@@ -95,6 +96,7 @@ M.init = function() {
             miracle.awaitLoad = miracle.props.mAwaitLoad;
             miracle.awaitShow = miracle.props.mAwaitShow;
             miracle.timeout = miracle.props.mTimeout;
+            miracle.errorStyle = miracle.props.mErrorStyle;
             miracle.spinner.use = miracle.props.mSpinner;
             miracle.spinner.style = miracle.props.mSpinnerStyle;
 
@@ -288,9 +290,22 @@ M.bindImgs = function(miracle, allImgs) {
 
     /* Detect when browser failed to load image source. */
     allImgs.on('error', function(e) {
-        /* Simulate load event to this image dependency to continue animations. */
-        M.imgsLoadedCounter.increment(miracle);
-        console.log('MIRACLE ERROR: Image dependency was not loaded. To not interrupt overall miracles effects order on page, Miracle will simulate load event for this image. Image url: ' + e.target.src + '. Miracle: ', miracle);
+        e.preventDefault();
+        if (miracle.errorStyle) {
+            //Mark miracle error.
+            //After simulating triggers buildRule.final() will handle error case
+            //by assigning errStyle class.
+            miracle.loadError = true;
+
+            //Simulate loaded trigger firing to resume other miracles appearance.
+            //'m-shown' trigger will be fired after buildRule.final()
+            //assigning error style class.
+            miracle.$.trigger('m-loaded');
+        } else {
+            /* Simulate load event to this image dependency to continue animations. */
+            M.imgsLoadedCounter.increment(miracle);
+            console.log('MIRACLE ERROR: Image dependency was not loaded. To not interrupt overall miracles effects order on page, Miracle will simulate load event for this image. Image url: ' + e.target.src + '. Miracle: ', miracle);
+        }
     });
 }
 
@@ -604,7 +619,8 @@ M.buildRule = {
                 orig = miracle.origin, transfOrig, transfOrigPref,
                 trans, transPref, transProps, transDur, transEasing, transPropsPref, transDurPref, transEasingPref,
                 classRE = /^./,
-                classInitSanitized, classFinalSanitized;
+                classInitSanitized, classFinalSanitized,
+                errorStyle = miracle.errorStyle;
 
             if (miracle.easing) {
                 easing = miracle.easing;
@@ -635,7 +651,9 @@ M.buildRule = {
             transEasing = 'transition-timing-function: ' + easing + ';';
             trans = transProps + transDur + transEasing;
 
-            if (effect == 'fade-in') {
+            if (miracle.loadError &&  errorStyle && classRE.test(errorStyle)) {
+                miracle.$.addClass(errorStyle.replace('.',''));
+            } else if (effect == 'fade-in') {
                 declars = 'opacity: 1;' + transPref + trans;
             } else if (effect == 'ease-y') {
                 !orig ? transfOrig = '-webkit-transform-origin: center; transform-origin: center;': {};
