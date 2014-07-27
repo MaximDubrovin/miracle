@@ -1,5 +1,5 @@
 
-/* variables */
+//variables
 
 $c_action: #01a6cf;
 
@@ -15,7 +15,7 @@ $f_sans-serif-families: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 
 $f_serif-families: "Georgia", "Trebuchet MS", "Times New Roman", serif;
 
-/* Clearfix */
+//Clearfix
 
 .clearfix:before,
 .clearfix:after {
@@ -31,28 +31,28 @@ $f_serif-families: "Georgia", "Trebuchet MS", "Times New Roman", serif;
   *zoom: 1;
 }
 
-/* Snippet classes */
+//Snippet classes
 
 .b-abs-inner {
-  /* for further element positioning inside absolute element */
-  /* usage — create div with this class */
+  //for further element positioning inside absolute element
+  //usage - create div with this class
   position: relative;
 }
 
 .b-thinspace_text {
-  /* for spaces between numbers & etc */
-  /* usage — create span with &nbsp; and with this class */
+  //for spaces between numbers & etc
+  //usage - create span with &nbsp; and with this class
   font-size: 80%;
 }
 
 .b-nowrap {
-  /* usage — wrap your text in span with this class */
+  //usage - wrap your text in span with this class
   white-space: nowrap;
 }
 
 .b-spinner {
-  /* for creating spinners */
-  /* usage — create div with this class; show it when something loads */
+  //for creating spinners
+  //usage - create div with this class; show it when something loads
   display: none;
   width: 40px;
   height: 40px;
