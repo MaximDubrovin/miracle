@@ -57,6 +57,8 @@ __API navigation__
   - [data-m-await-show](#data-m-await-show--m-id-or-prev)
   - [data-m-await-trigger](#data-m-await-trigger--true)
 - [data-m-inherit](#data-m-inherit--m-id)
+- [If one of miracle's image dependencies was not loaded](#if-one-of-miracles-image-dependencies-was-not-loaded)
+  - [data-m-error-style](#data-m-error-style--classname)
 - [Dynamic elements rendering and Miracle. Manual initialization.](#dynamic-elements-rendering-and-miracle)
 
 ## How to use?
