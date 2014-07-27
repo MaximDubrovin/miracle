@@ -542,6 +542,12 @@ To not interrupt overall miracles effects order on page, Miracle'll simulate loa
 
 <a href="http://maximdubrovin.github.io/miracle/build/e/img_error.html" target="_blank">«Image dependency was not loaded» example</a>
 
+#### data-m-error-style = «.className»
+
+To apply special style for miracle if one of image dependencies failed to load use ```data-m-error-style=".className"```. Where ```.className``` may be any class from your stylesheets. Note dot before class name.
+
+In future there will functionality to choose which types of images dependencies should case error. For example, ```border-image``` may be not so important as ```<img />``` to cause miracle restyling in failed to load case.
+
 ##Dynamic elements rendering and Miracle
 By default Miracle initializes as soon as DOM is ready. So plugin can't know about all future miracles you'll render dynamically from your code. Especially it is a problem for templates rendering.
 
