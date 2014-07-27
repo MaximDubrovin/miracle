@@ -2,6 +2,15 @@
 
 # 1.1.0
 
+### Added functionality
+- to apply special style for miracle if one of image dependencies failed to load use ```data-m-error-style=".className"```. Where ```.className``` may be any class from your stylesheets. Note dot before class name.
+
+In future there will functionality to choose which types of images dependencies should case error. For example, ```border-image``` may be not so important as ```<img />``` to cause miracle restyling in failed to load case.
+
+*Also:*
+
+From this release Miracle plugin will support [semantic versioning](http://semver.org/).
+
 
 # 1.0.7
 
